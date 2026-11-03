@@ -1,7 +1,14 @@
 import { defineConfig } from "vitest/config";
+import { config } from "./src/config";
+
+// Einbetten erlaubt nur für die Kalender-Adressen aus config.advisors
+const calendarOrigins = [
+  ...new Set(config.advisors.filter((a) => a.bookingUrl).map((a) => new URL(a.bookingUrl).origin)),
+];
 
 // Nur im Build: Content-Security-Policy als Meta-Tag. Sie erlaubt ausschließlich
-// eigene Dateien und blockiert jede Netzwerkanfrage aus dem Skript heraus.
+// eigene Dateien (plus die Terminkalender als iframe) und blockiert jede
+// Netzwerkanfrage aus dem Skript heraus.
 // (Im Entwicklungsmodus würde sie Vites Live-Reload blockieren.)
 const csp = [
   "default-src 'self'",
@@ -10,6 +17,7 @@ const csp = [
   "img-src 'self' data: https:",
   "font-src 'self'",
   "connect-src 'none'",
+  `frame-src ${calendarOrigins.join(" ") || "'none'"}`,
   "object-src 'none'",
   "base-uri 'self'",
   "form-action 'none'",

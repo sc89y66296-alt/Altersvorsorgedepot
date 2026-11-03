@@ -27,6 +27,14 @@ export const copy = {
       "Du musst das nicht allein sortieren. In einem kostenlosen Gespräch schauen wir gemeinsam auf deine Situation – ganz ohne Verpflichtung und ohne dass du am Ende etwas abschließen musst. Ca. {{appointmentDurationMinutes}} Minuten, {{appointmentFormats}}, wie es dir lieber ist. Bring gern die Unterlagen mit, die deine Eltern dir mitgegeben haben – oft klärt sich schon dadurch viel.",
     bookingButton: "Kostenlosen Termin vereinbaren",
     newTabHint: "(öffnet in neuem Tab)",
+    advisorLegend: "Mit wem möchtest du sprechen?",
+    advisorPrivacy:
+      "Nach deiner Auswahl wird hier der Buchungskalender unseres Dienstleisters bookingtime geladen. Deine Antworten aus dem Check werden dabei nicht übertragen.",
+    calendarHint: "Wähle im Kalender beim Schritt „Mitarbeiter wählen“ {{name}} aus.",
+    calendarTitle: "Online-Terminbuchung",
+    calendarNewTab: "Kalender in neuem Tab öffnen",
+    noCalendar: "Für einen Termin mit {{name}} ruf uns gerne an – wir finden direkt einen passenden Zeitpunkt.",
+    callButton: "Anrufen: {{phone}}",
     disclaimer:
       "Dieser Check gibt dir eine erste Orientierung und ersetzt keine persönliche Beratung. Ob und welcher Schutz für dich sinnvoll ist, hängt von deiner individuellen Situation und den jeweiligen Vertragsbedingungen ab. Deine Antworten werden nicht gespeichert.",
     restart: "Check neu starten",

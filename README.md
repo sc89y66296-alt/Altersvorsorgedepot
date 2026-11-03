@@ -58,7 +58,8 @@ Alle agenturspezifischen Werte stehen in **`src/config.ts`**. Alles mit `TODO` m
 | --- | --- |
 | `agencyName` | Name der Agentur (oben auf der Seite, wenn kein Logo gesetzt ist) |
 | `logoUrl` | Logo, leer lassen = kein Logo. Am besten die Logo-Datei in den Ordner `public/` legen und hier nur den Dateinamen eintragen, z. B. `"logo.svg"` |
-| `bookingUrl` | Link hinter dem Button „Kostenlosen Termin vereinbaren“ |
+| `advisors` | Ansprechpartner:innen für die Terminbuchung (Name, Rolle, Kalender-Link). Ist `bookingUrl` leer, erscheint statt des Kalenders die Telefonnummer |
+| `phone`, `phoneHref` | Telefonnummer zum Anzeigen und als Anruf-Link (`tel:+49…`) |
 | `imprintUrl`, `privacyUrl`, `initialInfoUrl` | Links im Fuß: Impressum, Datenschutz, Erstinformation |
 | `appointmentDurationMinutes` | Termindauer in der Einladung („Ca. 30 Minuten …“) |
 | `appointmentFormats` | Termin-Formate in der Einladung („bei uns in Passau oder per Video“) |
@@ -118,7 +119,8 @@ Bei Website-Baukästen (z. B. WordPress-Block „Individuelles HTML“) lässt s
 
 - Keine Cookies, kein `localStorage`/`sessionStorage`, keine Anfragen an fremde Server, keine externen Schriften.
 - Der gebaute Check enthält eine Content-Security-Policy, die Netzwerkanfragen aus dem Skript heraus technisch blockiert.
-- Der Termin-Link wird ohne Antworten oder Ergebnisse aufgerufen und sendet keinen Referrer.
+- Terminbuchung: Auf der Ergebnisseite wählt man eine Ansprechperson. Erst **danach** wird der Allianz-Buchungskalender (Dienstleister bookingtime) als iframe geladen – vorher gibt es keine Verbindung dorthin. Antworten oder Ergebnisse werden nicht übergeben, ein Referrer wird nicht gesendet. Die Content-Security-Policy erlaubt iframes nur von den Kalender-Adressen aus `config.advisors`. Die Datenschutzerklärung sollte bookingtime als Dienstleister nennen.
+- Der Allianz-Kalender gilt für die ganze Agentur; die Person wird darin im Schritt „Mitarbeiter wählen“ ausgesucht (eine Vorauswahl per Link bietet bookingtime nicht an). Der Check zeigt deshalb einen Hinweis, wen man dort auswählen soll.
 - Wie bei jeder Webseite protokolliert der Webserver ggf. IP-Adressen in seinen Log-Dateien – das ist Sache des Hosters und gehört in die bestehende Datenschutzerklärung der Website.
 - Wird ein Logo von einer fremden Adresse geladen (`logoUrl` mit `https://…` einer anderen Domain), ist das eine externe Anfrage. Deshalb das Logo besser in `public/` ablegen.
 

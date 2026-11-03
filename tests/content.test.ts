@@ -50,8 +50,15 @@ describe("Inhalte", () => {
     expect(text).not.toContain("{{");
   });
 
-  it("Termin-Link enthält keine Query-Parameter", () => {
-    expect(config.bookingUrl).not.toContain("?");
+  it("Ansprechpartner:innen sind vollständig und eindeutig", () => {
+    expect(config.advisors.map((a) => a.name)).toEqual(["Thomas Lang", "Francesco Schrönghamer", "Jonas Kroiss"]);
+    const ids = config.advisors.map((a) => a.id);
+    expect(new Set(ids).size).toBe(ids.length);
+    for (const a of config.advisors) {
+      if (a.bookingUrl) expect(new URL(a.bookingUrl).protocol).toBe("https:");
+    }
+    expect(config.advisors.some((a) => !a.bookingUrl)).toBe(true); // Fallback auf Telefon wird genutzt
+    expect(config.phoneHref).toMatch(/^tel:\+\d+$/);
   });
 });
 

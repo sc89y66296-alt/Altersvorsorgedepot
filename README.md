@@ -134,7 +134,7 @@ Bei Website-Baukästen (z. B. WordPress-Block „Individuelles HTML“) lässt s
 Wo das Briefing Spielraum ließ, wurde so entschieden:
 
 - **H7 bei 10a:** Wer bei Frage 10 „Ja, und ich nutze sie“ angibt, bekommt den Hinweis „Schau dir die Extras deines Arbeitgebers an“ **nicht** – auch nicht, wenn gerade der erste Job begonnen hat (1c). Laut Briefing wäre er bei 1c + 10a erschienen, was der Antwort widerspricht. Anpassbar in `src/logic/evaluate.ts`.
-- **Automatisches Weiterspringen** passiert nur bei Klick oder Tipp auf eine Antwort. Mit der Tastatur wählen die Pfeiltasten nur aus, weiter geht es mit Enter oder dem Button „Weiter“ – sonst würde jeder Pfeiltastendruck die Frage verlassen.
+- **Kein automatisches Weiterspringen** (abweichend vom Briefing, auf Wunsch der Agentur): Ein Klick auf eine Antwort wählt sie nur aus, weiter geht es mit dem Button „Weiter“ oder Enter. So kann man die Auswahl in Ruhe prüfen und korrigieren.
 - **H0** wird ohne Stufen-Label angezeigt.
 - **Fußzeile** (Impressum, Datenschutz, Erstinformation) ist auf allen Screens sichtbar.
 - **„Check neu starten“** führt zurück zur Startseite.

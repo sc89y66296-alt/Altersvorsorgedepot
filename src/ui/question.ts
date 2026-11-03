@@ -3,8 +3,6 @@ import type { Question } from "../content/questions";
 import type { AnswerId } from "../types";
 import { el, type View } from "./dom";
 
-export const AUTO_ADVANCE_DELAY_MS = 250;
-
 export interface QuestionViewProps {
   question: Question;
   total: number;
@@ -21,8 +19,6 @@ export function renderQuestion(props: QuestionViewProps): View {
   const name = `q${question.number}`;
   let selected = props.selected;
   let leaving = false;
-  // Automatisch weiter nur bei Klick/Tipp – nicht, wenn jemand mit den Pfeiltasten durch die Antworten geht
-  let pointerActive = false;
 
   const heading = el(
     "h1",
@@ -50,6 +46,7 @@ export function renderQuestion(props: QuestionViewProps): View {
     action();
   };
 
+  // Eine Auswahl speichert nur die Antwort – weiter geht es erst mit „Weiter“ (oder Enter)
   const options = question.answers.map((answer) => {
     const input = el("input", { type: "radio", name, value: answer.id, class: "answer-input" });
     input.checked = answer.id === selected;
@@ -57,13 +54,6 @@ export function renderQuestion(props: QuestionViewProps): View {
       selected = answer.id;
       nextButton.disabled = false;
       props.onSelect(answer.id);
-    });
-    input.addEventListener("click", () => {
-      if (!pointerActive || leaving) return;
-      selected = answer.id;
-      props.onSelect(answer.id);
-      leaving = true;
-      window.setTimeout(props.onNext, AUTO_ADVANCE_DELAY_MS);
     });
     return el("label", { class: "answer" }, input, el("span", { class: "answer-label" }, answer.label));
   });
@@ -74,8 +64,6 @@ export function renderQuestion(props: QuestionViewProps): View {
     el("legend", {}, question.topic ? el("p", { class: "topic" }, question.topic) : null, heading),
     el("div", { class: "answers" }, ...options),
   );
-  fieldset.addEventListener("pointerdown", () => (pointerActive = true));
-  fieldset.addEventListener("keydown", () => (pointerActive = false));
 
   const backButton = props.canGoBack
     ? el("button", { type: "button", class: "button button-secondary" }, copy.question.back)

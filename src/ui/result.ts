@@ -52,7 +52,7 @@ function renderBooking(): HTMLElement {
       calendar.hidden = true;
       const call = el(
         "a",
-        { class: "button button-primary", href: config.phoneHref },
+        { class: "button button-cta", href: config.phoneHref },
         fillPlaceholders(copy.result.callButton, { phone: config.phone }),
       );
       noCalendar.replaceChildren(el("p", {}, fillPlaceholders(copy.result.noCalendar, { name: advisor.name })), call);

@@ -3,7 +3,7 @@ import { el, type View } from "./dom";
 
 export function renderStart(onStart: () => void): View {
   const heading = el("h1", { tabindex: "-1" }, copy.start.title);
-  const button = el("button", { type: "button", class: "button button-primary button-large" }, copy.start.button);
+  const button = el("button", { type: "button", class: "button button-cta button-large" }, copy.start.button);
   button.addEventListener("click", onStart);
 
   const node = el(

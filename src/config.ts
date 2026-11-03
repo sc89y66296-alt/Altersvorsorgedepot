@@ -9,7 +9,7 @@ export interface Advisor {
 }
 
 export const config = {
-  agencyName: "TODO Agenturname", // TODO: von der Agentur ausfüllen
+  agencyName: "Allianz Versicherung Thomas Lang",
   logoUrl: "", // TODO: von der Agentur ausfüllen – leer = kein Logo (Logo-Datei am besten in den Ordner public/ legen, z. B. "logo.svg")
   // Ansprechpartner:innen für die Terminbuchung auf der Ergebnisseite.
   // bookingUrl = Online-Kalender, der nach der Auswahl eingebettet wird; leer = noch kein Kalender
@@ -42,10 +42,15 @@ export const config = {
   initialInfoUrl: "https://TODO/erstinformation", // TODO: von der Agentur ausfüllen – Erstinformation / Vermittlerstatus
   appointmentDurationMinutes: 30, // TODO: von der Agentur bestätigen
   appointmentFormats: "bei uns in Passau oder per Video", // TODO: von der Agentur bestätigen
+  // Allianz-CI, abgeleitet aus dem Design-System von allianz.de
   colors: {
-    primary: "#1F4E79", // TODO: von der Agentur ausfüllen – Platzhalter, später an Agentur-CI anpassen
+    primary: "#007AB3", // Allianz Interaktiv-Blau: Buttons, Links, Fortschritt, Auswahl
+    primaryHover: "#006192",
+    heading: "#003781", // Allianz-Blau (Markenfarbe): Überschriften, Schrift auf hellen Flächen
+    cta: "#05813C", // Allianz-Grün für Haupt-Aktionen („Los geht's“, „Anrufen“)
+    tint: "#E6F4F6", // helles Allianz-Türkis für hinterlegte Flächen
     background: "#FFFFFF",
-    text: "#1A1A1A",
+    text: "#414141",
   },
 };
 

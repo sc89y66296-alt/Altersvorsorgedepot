@@ -70,8 +70,17 @@ describe("Kontrast", () => {
   });
 
   it("Standardfarben erfüllen WCAG AA", () => {
-    expect(contrastRatio(config.colors.text, config.colors.background)!).toBeGreaterThanOrEqual(4.5);
-    expect(contrastRatio(config.colors.primary, config.colors.background)!).toBeGreaterThanOrEqual(4.5);
-    expect(contrastRatio("#FFFFFF", config.colors.primary)!).toBeGreaterThanOrEqual(4.5);
+    const { text, background, primary, primaryHover, heading, cta, tint } = config.colors;
+    const pairs: [string, string][] = [
+      [text, background],
+      [text, tint],
+      [primary, background],
+      [heading, background],
+      [heading, tint],
+      ["#FFFFFF", primary],
+      ["#FFFFFF", primaryHover],
+      ["#FFFFFF", cta],
+    ];
+    for (const [fg, bg] of pairs) expect(contrastRatio(fg, bg)!, `${fg} auf ${bg}`).toBeGreaterThanOrEqual(4.5);
   });
 });

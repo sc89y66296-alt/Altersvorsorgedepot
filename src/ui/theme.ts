@@ -4,20 +4,38 @@ import { MIN_TEXT_CONTRAST, contrastRatio } from "../logic/contrast";
 const WHITE = "#FFFFFF";
 const DARK = "#1A1A1A";
 
+/** Weiß oder Dunkel – je nachdem, was auf der Farbe besser lesbar ist. */
+function readableOn(color: string): string {
+  return (contrastRatio(WHITE, color) ?? 0) >= (contrastRatio(DARK, color) ?? 0) ? WHITE : DARK;
+}
+
 /** Schreibt die Farben aus config.ts als CSS-Variablen und warnt bei zu wenig Kontrast. */
 export function applyTheme(colors: Config["colors"], root: HTMLElement = document.documentElement): void {
-  // Button-Text: Weiß oder Dunkel, je nachdem, was auf der Primärfarbe besser lesbar ist
-  const onPrimary = (contrastRatio(WHITE, colors.primary) ?? 0) >= (contrastRatio(DARK, colors.primary) ?? 0) ? WHITE : DARK;
+  const onPrimary = readableOn(colors.primary);
+  const onCta = readableOn(colors.cta);
 
-  root.style.setProperty("--color-primary", colors.primary);
-  root.style.setProperty("--color-bg", colors.background);
-  root.style.setProperty("--color-text", colors.text);
-  root.style.setProperty("--color-on-primary", onPrimary);
+  const vars: Record<string, string> = {
+    "--color-primary": colors.primary,
+    "--color-primary-hover": colors.primaryHover,
+    "--color-heading": colors.heading,
+    "--color-cta": colors.cta,
+    "--color-tint": colors.tint,
+    "--color-bg": colors.background,
+    "--color-text": colors.text,
+    "--color-on-primary": onPrimary,
+    "--color-on-cta": onCta,
+  };
+  for (const [name, value] of Object.entries(vars)) root.style.setProperty(name, value);
 
   const checks: [string, string, string][] = [
     ["Text auf Hintergrund", colors.text, colors.background],
+    ["Text auf hinterlegten Flächen", colors.text, colors.tint],
     ["Primärfarbe (Links, Labels) auf Hintergrund", colors.primary, colors.background],
+    ["Überschriften auf Hintergrund", colors.heading, colors.background],
+    ["Überschriften-Farbe auf hinterlegten Flächen", colors.heading, colors.tint],
     ["Button-Text auf Primärfarbe", onPrimary, colors.primary],
+    ["Button-Text auf Hover-Farbe", onPrimary, colors.primaryHover],
+    ["Button-Text auf CTA-Farbe", onCta, colors.cta],
   ];
   for (const [name, fg, bg] of checks) {
     const ratio = contrastRatio(fg, bg);

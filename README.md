@@ -63,8 +63,13 @@ Alle agenturspezifischen Werte stehen in **`src/config.ts`**. Alles mit `TODO` m
 | `imprintUrl`, `privacyUrl`, `initialInfoUrl` | Links im Fuß: Impressum, Datenschutz, Erstinformation |
 | `appointmentDurationMinutes` | Termindauer in der Einladung („Ca. 30 Minuten …“) |
 | `appointmentFormats` | Termin-Formate in der Einladung („bei uns in Passau oder per Video“) |
-| `colors.primary` | Hauptfarbe (Buttons, Fortschritt, Links) |
+| `colors.primary`, `colors.primaryHover` | Interaktiv-Blau (Buttons, Fortschritt, Links, Auswahl) und seine Hover-Farbe |
+| `colors.heading` | Allianz-Blau für Überschriften und Schrift auf hellen Flächen |
+| `colors.cta` | Allianz-Grün für Haupt-Aktionen („Los geht's“, „Anrufen“) |
+| `colors.tint` | helles Türkis für hinterlegte Flächen |
 | `colors.background`, `colors.text` | Hintergrund- und Textfarbe |
+
+Die Farben sind aus dem Design-System von allianz.de übernommen. Die Allianz-Hausschrift (Allianz Neo) ist lizenzpflichtig und wird deshalb nicht verwendet, der Check nutzt die Systemschrift des Geräts. Ein **Allianz-Logo** ist bewusst nicht im Projekt: Die Marke darf nur nach Allianz-Vorgaben verwendet werden. Ein freigegebenes Logo (z. B. aus dem Allianz-Vertriebs-/Marketingportal) in `public/` legen und unter `logoUrl` eintragen.
 
 Farben bitte als Hex-Wert angeben (z. B. `"#1F4E79"`). Ist ein Kontrast zu schwach für gute Lesbarkeit (WCAG AA, mind. 4,5 : 1), erscheint in der Browser-Konsole eine Warnung. Die Schriftfarbe auf Buttons (Weiß oder Dunkel) wird automatisch gewählt.
 

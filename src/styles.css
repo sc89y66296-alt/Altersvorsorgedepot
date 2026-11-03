@@ -1,0 +1,498 @@
+/* Farben kommen aus src/config.ts (werden per JS als Variablen gesetzt). Die Werte hier sind nur Fallbacks. */
+:root {
+  --color-primary: #1f4e79;
+  --color-bg: #ffffff;
+  --color-text: #1a1a1a;
+  --color-on-primary: #ffffff;
+
+  --color-muted: color-mix(in srgb, var(--color-text) 78%, var(--color-bg));
+  --color-border: color-mix(in srgb, var(--color-text) 22%, var(--color-bg));
+  --color-surface: color-mix(in srgb, var(--color-text) 4%, var(--color-bg));
+  --color-primary-soft: color-mix(in srgb, var(--color-primary) 9%, var(--color-bg));
+
+  --font: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --radius: 0.75rem;
+  --gutter: 1rem;
+  --max-width: 40rem;
+
+  color-scheme: light;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font);
+  font-size: 1.0625rem;
+  line-height: 1.55;
+  overflow-wrap: break-word;
+}
+
+#app {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  min-height: 100dvh;
+}
+
+/* Im iframe bestimmt der Inhalt die Höhe, sonst könnte das iframe nie schrumpfen */
+.is-embedded #app {
+  min-height: 0;
+}
+
+.container,
+.site-main {
+  width: 100%;
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+}
+
+h1,
+h2,
+h3 {
+  line-height: 1.25;
+  margin: 0 0 0.75rem;
+  hyphens: manual;
+}
+
+h1 {
+  font-size: 1.625rem;
+}
+
+p {
+  margin: 0 0 1rem;
+}
+
+a {
+  color: var(--color-primary);
+  text-underline-offset: 0.15em;
+}
+
+:focus-visible {
+  outline: 3px solid var(--color-primary);
+  outline-offset: 3px;
+}
+
+/* Fokus per Skript auf Überschriften: kein Rahmen, Screenreader lesen sie trotzdem vor */
+[tabindex="-1"]:focus {
+  outline: none;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Kopf und Fuß */
+
+.site-header {
+  padding: 1rem 0 0;
+}
+
+.is-embedded .site-header {
+  display: none;
+}
+
+.brand-name {
+  font-weight: 600;
+  color: var(--color-muted);
+  font-size: 0.9375rem;
+}
+
+.brand-logo {
+  display: block;
+  max-height: 2.5rem;
+  max-width: 12rem;
+}
+
+.site-main {
+  flex: 1;
+  padding-top: 1.5rem;
+  padding-bottom: 2rem;
+}
+
+.site-main:focus {
+  outline: none;
+}
+
+.site-footer {
+  border-top: 1px solid var(--color-border);
+  padding: 0.75rem 0 1rem;
+  font-size: 0.9375rem;
+}
+
+.footer-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 1.25rem;
+}
+
+.footer-links a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  color: var(--color-muted);
+}
+
+/* Buttons */
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 48px;
+  padding: 0.75rem 1.5rem;
+  border-radius: var(--radius);
+  border: 2px solid transparent;
+  font: inherit;
+  font-weight: 600;
+  line-height: 1.25;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.button-primary {
+  background: var(--color-primary);
+  color: var(--color-on-primary);
+}
+
+.button-primary:hover {
+  background: color-mix(in srgb, var(--color-primary) 88%, black);
+}
+
+.button-primary:disabled {
+  background: var(--color-border);
+  color: var(--color-text);
+  cursor: not-allowed;
+}
+
+.button-secondary {
+  background: transparent;
+  color: var(--color-primary);
+  border-color: var(--color-primary);
+}
+
+.button-large {
+  width: 100%;
+  font-size: 1.125rem;
+}
+
+.link-button {
+  background: none;
+  border: 0;
+  padding: 0.5rem 0;
+  min-height: 44px;
+  font: inherit;
+  color: var(--color-primary);
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
+  cursor: pointer;
+}
+
+/* Startseite */
+
+.lead {
+  font-size: 1.125rem;
+}
+
+.privacy-note {
+  padding: 0.875rem 1rem;
+  background: var(--color-surface);
+  border-radius: var(--radius);
+  font-size: 0.9375rem;
+  color: var(--color-muted);
+}
+
+.screen-start .button {
+  margin: 0.5rem 0 1.25rem;
+}
+
+.disclaimer {
+  font-size: 0.875rem;
+  color: var(--color-muted);
+}
+
+/* Frage-Screens */
+
+.progress {
+  margin-bottom: 1.5rem;
+}
+
+.progress-text {
+  margin: 0 0 0.375rem;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: var(--color-muted);
+}
+
+.progress-track {
+  height: 0.5rem;
+  border-radius: 999px;
+  background: var(--color-border);
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background: var(--color-primary);
+  border-radius: inherit;
+}
+
+.question {
+  border: 0;
+  margin: 0;
+  padding: 0;
+  min-width: 0;
+}
+
+.question legend {
+  padding: 0;
+  margin-bottom: 1rem;
+  width: 100%;
+}
+
+.topic {
+  margin: 0 0 0.25rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: var(--color-primary);
+}
+
+.question-title {
+  font-size: 1.375rem;
+  margin: 0;
+}
+
+.answers {
+  display: grid;
+  gap: 0.625rem;
+}
+
+.answer {
+  display: flex;
+  align-items: center;
+  gap: 0.875rem;
+  min-height: 3.5rem;
+  padding: 0.875rem 1rem;
+  border: 2px solid var(--color-border);
+  border-radius: var(--radius);
+  background: var(--color-bg);
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.answer:hover {
+  border-color: var(--color-primary);
+}
+
+.answer:has(.answer-input:checked) {
+  border-color: var(--color-primary);
+  background: var(--color-primary-soft);
+}
+
+.answer:has(.answer-input:focus-visible) {
+  outline: 3px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+/* Lange Wörter wie „Berufsunfähigkeitsversicherung“ dürfen auf schmalen Handys umbrechen */
+.answer-label {
+  flex: 1;
+  min-width: 0;
+  hyphens: auto;
+  overflow-wrap: anywhere;
+}
+
+.answer-input {
+  flex: none;
+  width: 1.375rem;
+  height: 1.375rem;
+  margin: 0;
+  accent-color: var(--color-primary);
+  cursor: pointer;
+}
+
+.answer-input:focus-visible {
+  outline: none;
+}
+
+.question-nav {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-top: 1.5rem;
+}
+
+.question-nav .button-primary {
+  margin-left: auto;
+}
+
+/* Ergebnisseite */
+
+.hint-list {
+  display: grid;
+  gap: 0.875rem;
+  margin: 1.5rem 0;
+}
+
+.hint-card {
+  padding: 1.125rem 1.125rem 0.25rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  background: var(--color-bg);
+}
+
+.hint-title {
+  font-size: 1.1875rem;
+}
+
+/* Stufen-Labels bewusst neutral: alle in der Primärfarbe, nur unterschiedlich gefüllt */
+.level-label {
+  display: inline-block;
+  margin: 0 0 0.625rem;
+  padding: 0.125rem 0.625rem;
+  border-radius: 999px;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  border: 1px solid var(--color-primary);
+  color: var(--color-primary);
+}
+
+.level-now .level-label {
+  background: var(--color-primary);
+  color: var(--color-on-primary);
+}
+
+.level-soon .level-label {
+  background: var(--color-primary-soft);
+}
+
+.level-info .level-label {
+  border-color: var(--color-border);
+  color: var(--color-muted);
+}
+
+.info-line {
+  padding: 0.875rem 1rem;
+  border-left: 4px solid var(--color-primary);
+  background: var(--color-surface);
+  border-radius: 0 var(--radius) var(--radius) 0;
+}
+
+.more-hints {
+  margin: 1.5rem 0;
+  border-top: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.more-title {
+  display: flex;
+  align-items: center;
+  min-height: 3.5rem;
+  font-weight: 600;
+  font-size: 1.125rem;
+  cursor: pointer;
+  list-style: none;
+}
+
+.more-title::-webkit-details-marker {
+  display: none;
+}
+
+.more-title::after {
+  content: "+";
+  margin-left: auto;
+  padding-left: 1rem;
+  font-size: 1.5rem;
+  font-weight: 400;
+  line-height: 1;
+  color: var(--color-primary);
+}
+
+.more-hints[open] .more-title::after {
+  content: "–";
+}
+
+.more-hints[open] .hint-list {
+  margin-top: 0.25rem;
+}
+
+.invitation {
+  margin-top: 2rem;
+  padding: 1.25rem;
+  border-radius: var(--radius);
+  background: var(--color-primary-soft);
+}
+
+.invitation .button {
+  margin: 0.25rem 0 1rem;
+}
+
+.invitation .disclaimer {
+  margin-bottom: 0;
+  color: var(--color-text);
+}
+
+.restart {
+  margin-top: 1.5rem;
+  text-align: center;
+}
+
+/* Größere Bildschirme */
+
+@media (min-width: 40em) {
+  :root {
+    --gutter: 1.5rem;
+  }
+
+  h1 {
+    font-size: 2rem;
+  }
+
+  .question-title {
+    font-size: 1.625rem;
+  }
+
+  .site-main {
+    padding-top: 2.5rem;
+  }
+
+  .button-large {
+    width: auto;
+  }
+}
+
+/* Animationen nur, wenn niemand reduzierte Bewegung eingestellt hat */
+@media (prefers-reduced-motion: no-preference) {
+  .progress-fill {
+    transition: width 0.3s ease;
+  }
+
+  .answer,
+  .button {
+    transition: background-color 0.15s ease, border-color 0.15s ease;
+  }
+}

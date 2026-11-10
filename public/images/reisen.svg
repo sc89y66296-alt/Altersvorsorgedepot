@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 260">
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#7EC8E8"/>
+      <stop offset="1" stop-color="#D8F0F8"/>
+    </linearGradient>
+  </defs>
+  <rect width="400" height="260" fill="url(#sky)"/>
+  <circle cx="160" cy="44" r="26" fill="#FFD25E"/>
+  <g fill="#FFFFFF" opacity="0.9">
+    <ellipse cx="90" cy="60" rx="34" ry="12"/><ellipse cx="112" cy="52" rx="22" ry="12"/>
+    <ellipse cx="250" cy="96" rx="30" ry="10"/><ellipse cx="268" cy="90" rx="18" ry="10"/>
+  </g>
+  <!-- Berge -->
+  <path d="M0 210 L80 120 L130 170 L200 92 L280 180 L330 136 L400 200 V260 H0 Z" fill="#3E7CA6"/>
+  <path d="M200 92 L222 118 L210 114 L200 124 L188 114 L178 118 Z M80 120 L96 138 L80 134 L68 140 Z" fill="#FFFFFF"/>
+  <path d="M0 230 Q100 200 200 222 T400 214 V260 H0 Z" fill="#5BA36B"/>
+  <!-- Flugroute -->
+  <path d="M30 196 Q120 40 300 120" stroke="#003781" stroke-width="3" stroke-dasharray="2 10" stroke-linecap="round" fill="none"/>
+  <!-- Flugzeug -->
+  <g transform="translate(300 120) rotate(18)">
+    <path d="M-30 0 Q-30 -6 -20 -6 H24 Q34 -6 36 0 Q34 6 24 6 H-20 Q-30 6 -30 0 Z" fill="#FFFFFF" stroke="#003781" stroke-width="2"/>
+    <path d="M0 -4 L-14 -26 H-6 L14 -4 Z M0 4 L-14 26 H-6 L14 4 Z M-24 -4 L-32 -16 H-26 L-16 -4 Z" fill="#007AB3"/>
+  </g>
+  <!-- Koffer -->
+  <g transform="translate(300 200)">
+    <rect x="0" y="0" width="56" height="40" rx="6" fill="#E4572E"/>
+    <path d="M18 0 V-8 H38 V0" stroke="#7A4E2D" stroke-width="4" fill="none"/>
+    <path d="M14 0 V40 M42 0 V40" stroke="#B83F1E" stroke-width="3"/>
+    <circle cx="44" cy="22" r="6" fill="#FFD25E"/>
+  </g>
+</svg>

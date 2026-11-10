@@ -1,47 +1,38 @@
 // Agentur-Einstellungen. Alle Werte mit TODO müssen von der Agentur ausgefüllt werden.
 // Nach jeder Änderung: `npm run build` und den Ordner dist/ neu hochladen.
 
-export interface Advisor {
-  id: string;
-  name: string;
-  role: string;
-  bookingUrl: string;
-}
-
 export const config = {
-  agencyName: "Allianz Versicherung Thomas Lang",
+  agencyName: "Allianzagentur Thomas Lang",
+  agencyLocation: "Spiegelau", // Ort der Agentur (Einladung bei Frage 5)
   logoUrl: "", // TODO: von der Agentur ausfüllen – leer = kein Logo (Logo-Datei am besten in den Ordner public/ legen, z. B. "logo.svg")
-  // Ansprechpartner:innen für die Terminbuchung auf der Ergebnisseite.
-  // bookingUrl = Online-Kalender, der nach der Auswahl eingebettet wird; leer = noch kein Kalender
-  // (dann erscheint stattdessen die Telefonnummer). Der Allianz-Kalender (bookingtime) gilt für die
-  // ganze Agentur – die Person wird darin im Schritt „Mitarbeiter wählen“ ausgesucht.
-  advisors: [
-    {
-      id: "thomas-lang",
-      name: "Thomas Lang",
-      role: "Agenturinhaber",
-      bookingUrl: "https://booking.allianz-abv.eps.bookingtime.com/?vtnr=703400444",
-    },
-    {
-      id: "francesco-schroenghamer",
-      name: "Francesco Schrönghamer",
-      role: "Kundenbetreuer",
-      bookingUrl: "https://booking.allianz-abv.eps.bookingtime.com/?vtnr=703400444",
-    },
-    {
-      id: "jonas-kroiss",
-      name: "Jonas Kroiss",
-      role: "", // TODO: Rolle ergänzen
-      bookingUrl: "", // TODO: eintragen, sobald Jonas in bookingtime angelegt ist
-    },
-  ] as Advisor[],
+  // Terminvereinbarung bei Frage 5: Allianz-vor-Ort-Seite der Agentur, wird nach einem Klick eingebettet.
+  bookingUrl: "https://www.allianz-vor-ort.de/landingpage/zsm/managed/screen-lcQn_ytPR5613qf14pGtdA?homepagekey=thomas.lang1",
+  // Adressen, von denen die eingebettete Seite geladen werden darf (Content-Security-Policy).
+  // allianz-vor-ort.de leitet von www. auf die Adresse ohne www. weiter – deshalb beide.
+  bookingFrameOrigins: ["https://www.allianz-vor-ort.de", "https://allianz-vor-ort.de"],
   phone: "08553 920320",
   phoneHref: "tel:+498553920320",
   imprintUrl: "https://TODO/impressum", // TODO: von der Agentur ausfüllen
   privacyUrl: "https://TODO/datenschutz", // TODO: von der Agentur ausfüllen
   initialInfoUrl: "https://TODO/erstinformation", // TODO: von der Agentur ausfüllen – Erstinformation / Vermittlerstatus
   appointmentDurationMinutes: 30, // TODO: von der Agentur bestätigen
-  appointmentFormats: "bei uns in Passau oder per Video", // TODO: von der Agentur bestätigen
+  // Schieberegler bei Frage 1: Bruttoeinkommen pro Monat in €
+  incomeSlider: { min: 1000, max: 10000, step: 100, start: 3500 },
+  // Werte der gesetzlichen Rentenversicherung für die Rentenschätzung bei Frage 1.
+  // Einmal im Jahr prüfen (Deutsche Rentenversicherung, „Werte der Rentenversicherung“).
+  pension: {
+    currentPensionValue: 42.52, // aktueller Rentenwert ab 1. Juli 2026
+    averageAnnualIncome: 51944, // vorläufiges Durchschnittsentgelt 2026
+    contributionCeilingMonthly: 8450, // Beitragsbemessungsgrenze 2026 pro Monat
+    workingYears: 45, // Beitragsjahre der „Standardrente“
+    pensionLevelPercent: 48, // Rentenniveau (Haltelinie)
+  },
+  // Förderung im Altersvorsorgedepot ab 2027 (Text bei Frage 4)
+  funding: {
+    maxBaseAllowance: 540, // Grundzulage pro Jahr, höchstens
+    contributionForMaxAllowance: 1800, // Eigenbeitrag pro Jahr, ab dem die volle Grundzulage fließt
+    childAllowance: 300, // Kinderzulage pro Kind und Jahr, höchstens
+  },
   // Allianz-CI, abgeleitet aus dem Design-System von allianz.de
   colors: {
     primary: "#007AB3", // Allianz Interaktiv-Blau: Buttons, Links, Fortschritt, Auswahl

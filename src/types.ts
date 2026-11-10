@@ -1,26 +1,19 @@
-export type AnswerId = string; // z. B. "1a", "4b"
-export type Answers = Record<number, AnswerId>; // Frage-Nr. -> Antwort-Kürzel
+// Antwort-Kürzel. Sie sind interne IDs – die Ablauf-Logik in src/logic/flow.ts hängt daran.
 
-export type Level = "now" | "soon" | "info";
+export type SatisfactionId = "zufrieden" | "mehr" | "unklar"; // Frage 1
+export type GoalId = "urlaub" | "reisen" | "sicherheit" | "familie"; // Frage 2
+export type PriorityId = "foerderung" | "flexibilitaet" | "unsicher"; // Frage 3
+export type TalkId = "ja" | "spaeter"; // Frage 4
+export type ContactId = "ja" | "nein"; // Frage 5
 
-export type HintId =
-  | "H0"
-  | "H1a"
-  | "H1b"
-  | "H1c"
-  | "H2a"
-  | "H2b"
-  | "H3"
-  | "H4a"
-  | "H4b"
-  | "H5"
-  | "H6a"
-  | "H6b"
-  | "H7";
+export type Step = 1 | 2 | 3 | 4 | 5;
 
-export interface Result {
-  visible: HintId[]; // max. 4, sortiert
-  collapsed: HintId[]; // Rest, sortiert
-  showAbroadInfoLine: boolean; // Einzeiler bei 8a
-  levels: Partial<Record<HintId, Level>>; // Stufe je ausgelöstem Hinweis (H0 hat keine)
+/** Alles, was im Check angegeben wurde. Liegt nur im Arbeitsspeicher. */
+export interface Answers {
+  monthlyIncome: number; // Brutto pro Monat (Schieberegler bei Frage 1)
+  satisfaction?: SatisfactionId;
+  goal?: GoalId;
+  priority?: PriorityId;
+  talk?: TalkId;
+  contact?: ContactId;
 }

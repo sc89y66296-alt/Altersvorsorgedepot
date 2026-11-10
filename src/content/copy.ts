@@ -1,15 +1,13 @@
-// Texte für Start- und Ergebnisseite, Buttons und Disclaimer. Wörtlich laut Briefing.
+// Texte für Startseite, Buttons, Terminbuchung und Disclaimer.
 // {{…}} sind Platzhalter, die aus src/config.ts befüllt werden.
-
-import type { Level } from "../types";
 
 export const copy = {
   start: {
-    title: "Bist du nach dem Studium richtig abgesichert?",
+    title: "Lohnt sich das Altersvorsorgedepot für dich?",
     subtitle:
-      "10 kurze Fragen, ca. 2 Minuten. Du bekommst direkt danach eine Übersicht, welche Themen bei dir gerade dran sein könnten.",
+      "5 kurze Fragen, ca. 2 Minuten. Du siehst direkt, wie viel gesetzliche Rente du ungefähr erwarten kannst – und welche Vorsorge zu dir passt.",
     privacyNote:
-      "Anonym – wir fragen nicht nach Name, Kontaktdaten oder Gesundheit, und deine Antworten werden nicht gespeichert.",
+      "Anonym – wir fragen nicht nach Name oder Kontaktdaten. Deine Angaben bleiben auf deinem Gerät und werden nicht gespeichert.",
     button: "Los geht's",
     disclaimer: "Dieser Check gibt dir eine erste Orientierung und ersetzt keine persönliche Beratung.",
   },
@@ -18,25 +16,26 @@ export const copy = {
     back: "Zurück",
     next: "Weiter",
   },
-  result: {
-    heading: "Dein Ergebnis: Das solltest du auf dem Schirm haben",
-    intro:
-      "Nach dem Studium ändert sich ziemlich viel auf einmal – neue Stadt, erster Job, eigene Wohnung. Bei manchen Versicherungen passiert dabei still und leise ein Wechsel, den man leicht verpasst. Hier sind die Themen, die bei dir gerade dran sein könnten:",
-    moreHeading: "Weitere Themen für dich",
-    invitation:
-      "Du musst das nicht allein sortieren. In einem kostenlosen Gespräch schauen wir gemeinsam auf deine Situation – ganz ohne Verpflichtung und ohne dass du am Ende etwas abschließen musst. Ca. {{appointmentDurationMinutes}} Minuten, {{appointmentFormats}}, wie es dir lieber ist. Bring gern die Unterlagen mit, die deine Eltern dir mitgegeben haben – oft klärt sich schon dadurch viel.",
-    bookingButton: "Kostenlosen Termin vereinbaren",
-    newTabHint: "(öffnet in neuem Tab)",
-    advisorLegend: "Mit wem möchtest du sprechen?",
-    advisorPrivacy:
-      "Nach deiner Auswahl wird hier der Buchungskalender unseres Dienstleisters bookingtime geladen. Deine Antworten aus dem Check werden dabei nicht übertragen.",
-    calendarHint: "Wähle im Kalender beim Schritt „Mitarbeiter wählen“ {{name}} aus.",
-    calendarTitle: "Online-Terminbuchung",
-    calendarNewTab: "Kalender in neuem Tab öffnen",
-    noCalendar: "Für einen Termin mit {{name}} ruf uns gerne an – wir finden direkt einen passenden Zeitpunkt.",
+  summary: {
+    heading: "Deine Angaben",
+    income: "Bruttoeinkommen: {{income}} € im Monat",
+    pension: "Geschätzte gesetzliche Rente: ca. {{pension}} € im Monat",
+    goal: "Im Alter wichtig: {{goal}}",
+    priority: "Bei der Vorsorge wichtig: {{priority}}",
+  },
+  booking: {
+    heading: "Kostenloses Orientierungsgespräch vereinbaren",
+    text: "Über unsere Allianz-Seite kannst du online einen Termin buchen oder uns deine Kontaktdaten schicken.",
+    loadButton: "Termin vereinbaren",
+    privacy:
+      "Mit dem Klick wird hier die Seite der Allianz (allianz-vor-ort.de) geladen. Dort gelten die Datenschutzhinweise der Allianz. Deine Angaben aus dem Check werden nicht übertragen.",
+    frameTitle: "Terminvereinbarung bei der {{agencyName}}",
+    newTab: "Seite in neuem Tab öffnen",
     callButton: "Anrufen: {{phone}}",
+  },
+  final: {
     disclaimer:
-      "Dieser Check gibt dir eine erste Orientierung und ersetzt keine persönliche Beratung. Ob und welcher Schutz für dich sinnvoll ist, hängt von deiner individuellen Situation und den jeweiligen Vertragsbedingungen ab. Deine Antworten werden nicht gespeichert.",
+      "Dieser Check gibt dir eine erste Orientierung und ersetzt keine persönliche Beratung. Die Rentenschätzung ist stark vereinfacht; deine tatsächliche Rente steht in deiner Renteninformation der Deutschen Rentenversicherung. Förderung und Steuervorteile hängen von deiner persönlichen Situation und den Vertragsbedingungen ab. Deine Angaben werden nicht gespeichert.",
     restart: "Check neu starten",
   },
   footer: {
@@ -44,13 +43,22 @@ export const copy = {
     privacy: "Datenschutz",
     initialInfo: "Erstinformation",
   },
-  levelLabels: {
-    now: "Jetzt anschauen",
-    soon: "Bald anschauen",
-    info: "Gut zu wissen",
-  } satisfies Record<Level, string>,
 };
 
 export function fillPlaceholders(text: string, values: Record<string, string | number>): string {
-  return text.replace(/\{\{(\w+)\}\}/g, (match, key: string) => (key in values ? String(values[key]) : match));
+  return keepEuroTogether(
+    text.replace(/\{\{(\w+)\}\}/g, (match, key: string) => (key in values ? String(values[key]) : match)),
+  );
+}
+
+/** Geschütztes Leerzeichen zwischen Zahl und €, damit „1.800 €“ nicht umbricht. */
+export function keepEuroTogether(text: string): string {
+  return text.replace(/(\d) €/g, "$1\u00a0€");
+}
+
+const euroFormat = new Intl.NumberFormat("de-DE", { maximumFractionDigits: 2 });
+
+/** 3500 -> "3.500", 42.52 -> "42,52" */
+export function formatNumber(value: number): string {
+  return euroFormat.format(value);
 }

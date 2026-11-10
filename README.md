@@ -1,6 +1,22 @@
-# Selbstcheck „Bist du nach dem Studium richtig abgesichert?“
+# Rentencheck „Lohnt sich das Altersvorsorgedepot für dich?“
 
-Ein kleines Web-Tool: 10 Fragen, ca. 2 Minuten, danach bis zu 4 Hinweise, welche Versicherungsthemen beim Übergang vom Studium in den Job gerade dran sind – plus eine Einladung zum kostenlosen Gespräch.
+Ein kleines Web-Tool: 5 Fragen, ca. 2 Minuten. Es zeigt, wie viel gesetzliche Rente man ungefähr erwarten kann, fragt nach Zielen und Vorsorge-Wunsch und führt zum kostenlosen Orientierungsgespräch.
+
+Entstanden als Kopie des Selbstchecks [Versicherungscheck](https://github.com/sc89y66296-alt/Versicherungscheck); Technik, Gestaltung und Terminbuchung sind von dort übernommen.
+
+## Ablauf
+
+| Frage | Inhalt |
+| --- | --- |
+| 1 | Schieberegler fürs Bruttoeinkommen, live berechnete gesetzliche Rente und Lücke – „Wärst du damit zufrieden?“ |
+| 2 | Was ist dir im Alter am wichtigsten? Vier Bildkarten mit Bildunterschrift (Urlaub, Reisen, Sicherheit, Familie) |
+| 3 | Förderung oder Flexibilität? „Ich bin mir unsicher“ springt direkt zu Frage 5 |
+| 4 | Je nach Frage 3: Altersvorsorgedepot (Zulagen) oder Privatrente (Flexibilität, Steuervorteile) – „Möchtest du darüber sprechen?“ |
+| 5 | Orientierungsgespräch (in der Agentur in Spiegelau, beim Kunden zu Hause oder per Video), Terminbuchung, „Dürfen wir uns melden?“ |
+
+**Rentenschätzung (Frage 1):** Einkommen (bis zur Beitragsbemessungsgrenze) ÷ Durchschnittsentgelt × 12 × 45 Jahre × aktueller Rentenwert. Gerechnet wird mit heutigen Werten, brutto. Die Werte stehen in `src/config.ts` unter `pension` und sollten einmal im Jahr aktualisiert werden.
+
+**Terminvereinbarung und „Dürfen wir uns melden?“ (Frage 5):** Es gibt keinen eigenen Server. Nach einem Klick auf „Termin vereinbaren“ wird die Allianz-vor-Ort-Seite der Agentur (`bookingUrl`) eingebettet: Dort gibt es die Online-Terminbuchung und ein Kontaktformular mit Einwilligung. Bei „Ja, meldet euch“ führt ein Button genau dorthin; zusätzlich gibt es den Anruf-Button.
 
 - Läuft komplett im Browser, ohne Server, Datenbank, Cookies oder Tracking.
 - Antworten werden nirgends gespeichert. Ein Neuladen der Seite startet den Check von vorn.
@@ -25,7 +41,7 @@ npm run dev
 
 Das Terminal zeigt eine Adresse wie `http://localhost:5173`. Diese im Browser öffnen. Änderungen an Dateien sind sofort sichtbar.
 
-Tests ausführen (prüft die komplette Ergebnislogik):
+Tests ausführen (prüft Rentenschätzung, Ablauf und Texte):
 
 ```bash
 npm test
@@ -58,11 +74,15 @@ Alle agenturspezifischen Werte stehen in **`src/config.ts`**. Alles mit `TODO` m
 | --- | --- |
 | `agencyName` | Name der Agentur (oben auf der Seite, wenn kein Logo gesetzt ist) |
 | `logoUrl` | Logo, leer lassen = kein Logo. Am besten die Logo-Datei in den Ordner `public/` legen und hier nur den Dateinamen eintragen, z. B. `"logo.svg"` |
-| `advisors` | Ansprechpartner:innen für die Terminbuchung (Name, Rolle, Kalender-Link). Ist `bookingUrl` leer, erscheint statt des Kalenders die Telefonnummer |
+| `bookingUrl` | Allianz-vor-Ort-Seite für die Terminvereinbarung (wird bei Frage 5 nach einem Klick eingebettet) |
+| `bookingFrameOrigins` | Adressen, die als iframe geladen werden dürfen (Content-Security-Policy) – bei einer neuen Terminseite mit anpassen |
 | `phone`, `phoneHref` | Telefonnummer zum Anzeigen und als Anruf-Link (`tel:+49…`) |
 | `imprintUrl`, `privacyUrl`, `initialInfoUrl` | Links im Fuß: Impressum, Datenschutz, Erstinformation |
 | `appointmentDurationMinutes` | Termindauer in der Einladung („Ca. 30 Minuten …“) |
-| `appointmentFormats` | Termin-Formate in der Einladung („bei uns in Passau oder per Video“) |
+| `agencyLocation` | Ort der Agentur für die Einladung bei Frage 5 („… nach Spiegelau“) |
+| `incomeSlider` | Bereich, Schrittweite und Startwert des Einkommens-Schiebereglers |
+| `pension` | Rentenwert, Durchschnittsentgelt, Beitragsbemessungsgrenze, Beitragsjahre, Rentenniveau |
+| `funding` | Förderbeträge des Altersvorsorgedepots (Grundzulage, nötiger Eigenbeitrag, Kinderzulage) |
 | `colors.primary`, `colors.primaryHover` | Interaktiv-Blau (Buttons, Fortschritt, Links, Auswahl) und seine Hover-Farbe |
 | `colors.heading` | Allianz-Blau für Überschriften und Schrift auf hellen Flächen |
 | `colors.cta` | Allianz-Grün für Haupt-Aktionen („Los geht's“, „Anrufen“) |
@@ -75,15 +95,16 @@ Farben bitte als Hex-Wert angeben (z. B. `"#1F4E79"`). Ist ein Kontrast zu schwa
 
 Wird das Tool im iframe angezeigt, wird die Kopfzeile mit Name/Logo ausgeblendet – die umgebende Website zeigt das ja schon.
 
-## 4. Texte ändern
+## 4. Texte und Bilder ändern
+
+Die Bilder zu Frage 2 liegen in `public/images/` (selbst gezeichnete Illustrationen, frei verwendbar). Für eigene Fotos die Datei dort ablegen und in `src/content/questions.ts` bei `image` den Dateinamen eintragen. Querformat 4 : 3 passt am besten (angezeigt als Quartett, 2 × 2, auch auf dem Handy); Fotos bitte nur mit Nutzungsrecht (z. B. aus dem Allianz-Bildportal).
 
 | Was | Datei |
 | --- | --- |
-| Fragen, Antworten, Themen-Zeilen | `src/content/questions.ts` |
-| Hinweise H0–H7 und die Info-Zeile zum Urlaub | `src/content/hints.ts` |
-| Startseite, Ergebnisseite, Buttons, Disclaimer, Stufen-Labels | `src/content/copy.ts` |
+| Fragen, Antworten, Info-Texte zu Förderung und Privatrente, letzte Seite | `src/content/questions.ts` |
+| Startseite, Buttons, Zusammenfassung, Terminbuchung, Disclaimer | `src/content/copy.ts` |
 
-Nur den Text zwischen den Anführungszeichen ändern. Die Kürzel (`id: "4b"` usw.) bitte **nicht** ändern – die Ergebnislogik hängt daran. Wann welcher Hinweis erscheint, steht in `src/logic/evaluate.ts`, die Überspring-Regeln in `src/logic/skip.ts`.
+Nur den Text zwischen den Anführungszeichen ändern. Die Kürzel (`id: "foerderung"` usw.) bitte **nicht** ändern – der Ablauf hängt daran (`src/logic/flow.ts`).
 
 Nach Textänderungen einmal `npm test` ausführen, dann `npm run build`.
 
@@ -95,7 +116,7 @@ Diesen Code an der gewünschten Stelle der Agentur-Website einfügen und die Adr
 <iframe
   id="selbstcheck"
   src="https://www.ihre-agentur.de/selbstcheck/"
-  title="Selbstcheck: Bist du nach dem Studium richtig abgesichert?"
+  title="Rentencheck: Lohnt sich das Altersvorsorgedepot für dich?"
   style="width: 100%; height: 700px; border: 0; display: block;"
   loading="lazy"
 ></iframe>
@@ -124,29 +145,26 @@ Bei Website-Baukästen (z. B. WordPress-Block „Individuelles HTML“) lässt s
 
 - Keine Cookies, kein `localStorage`/`sessionStorage`, keine Anfragen an fremde Server, keine externen Schriften.
 - Der gebaute Check enthält eine Content-Security-Policy, die Netzwerkanfragen aus dem Skript heraus technisch blockiert.
-- Terminbuchung: Auf der Ergebnisseite wählt man eine Ansprechperson. Erst **danach** wird der Allianz-Buchungskalender (Dienstleister bookingtime) als iframe geladen – vorher gibt es keine Verbindung dorthin. Antworten oder Ergebnisse werden nicht übergeben, ein Referrer wird nicht gesendet. Die Content-Security-Policy erlaubt iframes nur von den Kalender-Adressen aus `config.advisors`. Die Datenschutzerklärung sollte bookingtime als Dienstleister nennen.
-- Der Allianz-Kalender gilt für die ganze Agentur; die Person wird darin im Schritt „Mitarbeiter wählen“ ausgesucht (eine Vorauswahl per Link bietet bookingtime nicht an). Der Check zeigt deshalb einen Hinweis, wen man dort auswählen soll.
+- Terminvereinbarung: Erst nach dem Klick auf „Termin vereinbaren“ wird die Allianz-Seite (allianz-vor-ort.de) als iframe geladen – vorher gibt es keine Verbindung dorthin. Angaben aus dem Check werden nicht übergeben, ein Referrer wird nicht gesendet. Die Content-Security-Policy erlaubt iframes nur von den Adressen in `bookingFrameOrigins`. Was jemand dort eingibt (Kontaktformular, Termin), verarbeitet die Allianz nach ihren eigenen Datenschutzhinweisen; die eingebettete Seite zeigt auch ein eigenes Cookie-Banner.
 - Wie bei jeder Webseite protokolliert der Webserver ggf. IP-Adressen in seinen Log-Dateien – das ist Sache des Hosters und gehört in die bestehende Datenschutzerklärung der Website.
+- Das Einkommen aus Frage 1 bleibt im Browser und wird nirgends hin übertragen.
 - Wird ein Logo von einer fremden Adresse geladen (`logoUrl` mit `https://…` einer anderen Domain), ist das eine externe Anfrage. Deshalb das Logo besser in `public/` ablegen.
 
 ## 7. Fachliche Entscheidungen bei der Umsetzung
 
-Wo das Briefing Spielraum ließ, wurde so entschieden:
-
-- **H7 bei 10a:** Wer bei Frage 10 „Ja, und ich nutze sie“ angibt, bekommt den Hinweis „Schau dir die Extras deines Arbeitgebers an“ **nicht** – auch nicht, wenn gerade der erste Job begonnen hat (1c). Laut Briefing wäre er bei 1c + 10a erschienen, was der Antwort widerspricht. Anpassbar in `src/logic/evaluate.ts`.
-- **Kein automatisches Weiterspringen** (abweichend vom Briefing, auf Wunsch der Agentur): Ein Klick auf eine Antwort wählt sie nur aus, weiter geht es mit dem Button „Weiter“ oder Enter. So kann man die Auswahl in Ruhe prüfen und korrigieren.
-- **H0** wird ohne Stufen-Label angezeigt.
+- **Rentenschätzung brutto, in heutigen Werten:** Die Rente wird mit dem aktuellen Rentenwert gerechnet, nicht hochgerechnet. Das Rentenniveau von 48 % bezieht sich auf den Durchschnittsverdienst nach Sozialabgaben; im Verhältnis zum Brutto ergibt die Schätzung deshalb ca. 43 %. Ein Hinweis unter dem Ergebnis erklärt das.
+- **Frage 1 bleibt beantwortbar für alle:** Auch „Ja, das würde mir reichen“ führt weiter zu Frage 2.
+- **Frage 4 „Erst mal nicht“** führt trotzdem zu Frage 5, weil dort das Gespräch noch einmal in Ruhe angeboten wird.
+- **Kein automatisches Weiterspringen:** Ein Klick auf eine Antwort wählt sie nur aus, weiter geht es mit „Weiter“ oder Enter.
 - **Fußzeile** (Impressum, Datenschutz, Erstinformation) ist auf allen Screens sichtbar.
-- **„Check neu starten“** führt zurück zur Startseite.
-- Wohnt jemand in einer eigenen Wohnung (5c/5d) und wählt bei Frage 6 trotzdem „Betrifft mich nicht, ich wohne bei meinen Eltern“, erscheint – wie im Briefing – kein Hausrat-Hinweis.
 
 ## 8. Projektstruktur
 
 ```
 index.html            Grundgerüst der Seite
 src/config.ts         Agentur-Einstellungen
-src/content/          Alle Texte (Fragen, Hinweise, Seitentexte)
-src/logic/            Ergebnis- und Überspring-Logik (ohne Oberfläche, voll getestet)
+src/content/          Alle Texte (Fragen, Info-Texte, Seitentexte)
+src/logic/            Rentenschätzung, Ablauf, Zusammenfassung (ohne Oberfläche, getestet)
 src/ui/               Darstellung der Screens
 src/styles.css        Gestaltung
 tests/                Automatische Tests (npm test)

@@ -1,124 +1,132 @@
-// Die 10 Fragen des Selbstchecks. Texte wörtlich laut Briefing.
-// `topic` ist die kleine Themen-Zeile über der Frage (optional).
-// Die Kürzel (id) sind interne IDs und dürfen nicht geändert werden –
-// die Ergebnislogik in src/logic/ hängt daran.
+// Die fünf Fragen des Checks. Nur die Texte (label, text, …) ändern –
+// die Kürzel (id) sind interne IDs, an denen die Ablauf-Logik hängt.
+// {{…}} sind Platzhalter, die aus src/config.ts befüllt werden.
 
-import type { AnswerId } from "../types";
+import type { ContactId, GoalId, PriorityId, SatisfactionId, TalkId } from "../types";
 
-export interface Answer {
-  id: AnswerId;
+export interface Answer<Id extends string = string> {
+  id: Id;
   label: string;
+  image?: string; // Bild über der Antwort (Pfad relativ zu public/, z. B. "images/urlaub.svg")
+  caption?: string; // Bildunterschrift unter der Antwort
 }
 
-export interface Question {
-  number: number;
-  topic?: string;
+export interface ChoiceQuestion<Id extends string = string> {
+  topic?: string; // kleine Themen-Zeile über der Frage
   text: string;
-  answers: Answer[];
+  answers: Answer<Id>[];
 }
 
-export const questions: Question[] = [
-  {
-    number: 1,
-    text: "Was machst du gerade?",
+// Frage 1: Schieberegler + „Würde dir das reichen?“
+export const q1 = {
+  topic: "Deine gesetzliche Rente",
+  sliderLabel: "Dein Bruttoeinkommen pro Monat",
+  resultLabel: "Geschätzte gesetzliche Rente pro Monat",
+  resultLine: "Das sind rund {{percent}} % deines heutigen Bruttoeinkommens – dir fehlen im Alter ca. {{gap}} € im Monat.",
+  aboveCeiling:
+    "Einkommen über {{ceiling}} € im Monat (Beitragsbemessungsgrenze) erhöht die gesetzliche Rente nicht mehr – die Lücke wird damit größer.",
+  footnote:
+    "Vereinfachte Schätzung: {{years}} Jahre mit diesem Einkommen, heutige Werte (Rentenwert {{pensionValue}} €), vor Steuern und Krankenversicherung. Das gesetzliche Rentenniveau von {{level}} % bezieht sich auf einen Durchschnittsverdienst nach Sozialabgaben – im Verhältnis zum Brutto bleibt deshalb weniger übrig.",
+  question: {
+    text: "Wärst du mit dieser Rente im Alter zufrieden?",
     answers: [
-      { id: "1a", label: "Ich studiere (oder mache eine Ausbildung)" },
-      { id: "1b", label: "Ich bin fertig und suche einen Job" },
-      { id: "1c", label: "Ich habe gerade meinen ersten Job angefangen oder fange bald an" },
-      { id: "1d", label: "Ich arbeite schon länger als ein Jahr" },
+      { id: "zufrieden", label: "Ja, das würde mir reichen" },
+      { id: "mehr", label: "Nein, ich hätte gern mehr" },
+      { id: "unklar", label: "Weiß ich noch nicht" },
     ],
-  },
-  {
-    number: 2,
-    text: "Wie alt bist du?",
+  } satisfies ChoiceQuestion<SatisfactionId>,
+};
+
+export const q2: ChoiceQuestion<GoalId> = {
+  topic: "Dein Ruhestand",
+  text: "Was ist dir im Alter am wichtigsten?",
+  answers: [
+    {
+      id: "urlaub",
+      label: "Urlaub & Zeit für mich",
+      image: "images/urlaub.svg",
+      caption: "Liegestuhl, Meer und kein Wecker",
+    },
+    {
+      id: "reisen",
+      label: "Reisen & die Welt entdecken",
+      image: "images/reisen.svg",
+      caption: "Koffer packen und endlich los",
+    },
+    {
+      id: "sicherheit",
+      label: "Sicherheit ohne Geldsorgen",
+      image: "images/sicherheit.svg",
+      caption: "Ein warmes Zuhause, ruhige Abende",
+    },
+    {
+      id: "familie",
+      label: "Familie & Enkel unterstützen",
+      image: "images/familie.svg",
+      caption: "Zeit und Geld für die Liebsten",
+    },
+  ],
+};
+
+export const q3: ChoiceQuestion<PriorityId> = {
+  topic: "Deine Vorsorge",
+  text: "Was ist dir bei deiner Vorsorge persönlich wichtiger?",
+  answers: [
+    { id: "foerderung", label: "Maximale staatliche Förderung – auch wenn das Geld dafür bis zur Rente gebunden ist" },
+    { id: "flexibilitaet", label: "Flexibilität – ich möchte bei Bedarf an mein Geld kommen" },
+    { id: "unsicher", label: "Ich bin mir unsicher" },
+  ],
+};
+
+// Frage 4: Info je nach Antwort bei Frage 3, danach „Möchtest du darüber sprechen?“
+export const q4 = {
+  topic: "Passt zu dir",
+  info: {
+    foerderung: {
+      title: "Altersvorsorgedepot: bis zu {{maxBaseAllowance}} € Zuschuss vom Staat – jedes Jahr",
+      text: [
+        "Ab 2027 gibt es das neue Altersvorsorgedepot. Der Staat legt auf deine Einzahlungen bis zu {{maxBaseAllowance}} € Grundzulage pro Jahr drauf (bei {{contributionForMaxAllowance}} € Eigenbeitrag im Jahr).",
+        "Für jedes Kind mit Kindergeld kommen bis zu {{childAllowance}} € Kinderzulage pro Jahr dazu. Das Geld ist dafür bis zum Rentenbeginn gebunden.",
+      ],
+    },
+    flexibilitaet: {
+      title: "Private Rente: flexibel bleiben und Steuern sparen",
+      text: [
+        "Mit einer Privatrente der Allianz bleibst du beweglich: Beiträge lassen sich anpassen oder pausieren, und bei Bedarf kommst du an dein Geld.",
+        "Gleichzeitig kannst du von Steuervorteilen profitieren, zum Beispiel bei der Auszahlung im Alter.",
+      ],
+    },
+  } satisfies Record<Exclude<PriorityId, "unsicher">, { title: string; text: string[] }>,
+  question: {
+    text: "Möchtest du in einem kurzen Gespräch herausfinden, wie viel das für dich ausmacht?",
     answers: [
-      { id: "2a", label: "unter 23" },
-      { id: "2b", label: "23 oder 24" },
-      { id: "2c", label: "25 bis 27" },
-      { id: "2d", label: "28 oder älter" },
+      { id: "ja", label: "Ja, gerne" },
+      { id: "spaeter", label: "Erst mal nicht" },
     ],
-  },
-  {
-    number: 3,
-    text: "Wie bist du krankenversichert?",
+  } satisfies ChoiceQuestion<TalkId>,
+};
+
+// Frage 5: Orientierungsgespräch, Terminbuchung und Rückmelde-Erlaubnis
+export const q5 = {
+  topic: "Dein nächster Schritt",
+  title: "Jede Situation ist anders",
+  intro:
+    "Ob das Altersvorsorgedepot, eine private Rente oder eine Kombination für dich passt, hängt von deinem Einkommen, deiner Familie und deinen Plänen ab. Komm gerne auf ein kostenloses Orientierungsgespräch zu uns in die {{agencyName}} nach {{agencyLocation}} – oder wir kommen zu dir nach Hause. Auch per Video ist das möglich. Ca. {{appointmentDurationMinutes}} Minuten, ganz ohne Verpflichtung.",
+  goalLine: {
+    urlaub: "Damit im Ruhestand genug Zeit und Geld für Urlaub bleibt, lohnt sich ein früher Blick auf die Lücke.",
+    reisen: "Damit du im Ruhestand die Welt entdecken kannst, lohnt sich ein früher Blick auf die Lücke.",
+    sicherheit: "Damit du im Alter ohne Geldsorgen lebst, lohnt sich ein früher Blick auf die Lücke.",
+    familie: "Damit du im Alter auch deine Familie unterstützen kannst, lohnt sich ein früher Blick auf die Lücke.",
+  } satisfies Record<GoalId, string>,
+  contact: {
+    text: "Dürfen wir uns proaktiv bei dir melden?",
     answers: [
-      { id: "3a", label: "Über meine Eltern (Familienversicherung)" },
-      { id: "3b", label: "Selbst, als Student:in" },
-      { id: "3c", label: "Über meinen Job" },
-      { id: "3d", label: "Keine Ahnung, ehrlich gesagt" },
+      { id: "ja", label: "Ja, meldet euch gerne bei mir" },
+      { id: "nein", label: "Nein, ich melde mich selbst" },
     ],
-  },
-  {
-    number: 4,
-    topic: "Haftpflicht",
-    text: "Wer zahlt, wenn du aus Versehen das Handy deiner Mitbewohnerin runterwirfst?",
-    answers: [
-      { id: "4a", label: "Meine eigene Haftpflichtversicherung" },
-      { id: "4b", label: "Die Haftpflicht meiner Eltern" },
-      { id: "4c", label: "Ich weiß es nicht" },
-      { id: "4d", label: "Ich selbst – ich habe keine Haftpflicht" },
-    ],
-  },
-  {
-    number: 5,
-    text: "Wie wohnst du?",
-    answers: [
-      { id: "5a", label: "Bei meinen Eltern" },
-      { id: "5b", label: "WG oder Wohnheim, aber offiziell noch bei meinen Eltern gemeldet" },
-      { id: "5c", label: "In meiner eigenen Wohnung (dort auch mit Hauptwohnsitz gemeldet)" },
-      { id: "5d", label: "Ich ziehe bald in meine erste eigene Wohnung" },
-    ],
-  },
-  {
-    number: 6,
-    topic: "Hausrat",
-    text: "Sind deine Sachen in der Wohnung versichert, z. B. bei Einbruch oder Wasserschaden?",
-    answers: [
-      { id: "6a", label: "Ja, mit eigener Hausratversicherung" },
-      { id: "6b", label: "Wahrscheinlich über meine Eltern" },
-      { id: "6c", label: "Nein / weiß nicht" },
-      { id: "6d", label: "Betrifft mich nicht, ich wohne bei meinen Eltern" },
-    ],
-  },
-  {
-    number: 7,
-    text: "Wie sieht's mit dem Auto aus?",
-    answers: [
-      { id: "7a", label: "Kein Auto, ich fahre Rad, Bus oder Bahn" },
-      { id: "7b", label: "Ich habe ein eigenes Auto, auf mich versichert" },
-      { id: "7c", label: "Das Auto läuft über meine Eltern, aber meistens fahre ich" },
-      { id: "7d", label: "Ich plane, mir bald ein Auto zu holen" },
-    ],
-  },
-  {
-    number: 8,
-    text: "Hast du Pläne fürs Ausland?",
-    answers: [
-      { id: "8a", label: "Nur Urlaub, ein paar Wochen" },
-      { id: "8b", label: "Auslandssemester, Praktikum oder Work & Travel (länger als 6 Wochen)" },
-      { id: "8c", label: "Ich bin gerade im Ausland" },
-      { id: "8d", label: "Aktuell nichts geplant" },
-    ],
-  },
-  {
-    number: 9,
-    topic: "Berufsunfähigkeit",
-    text: "Hast du dir schon mal überlegt, wovon du lebst, wenn du länger nicht arbeiten kannst?",
-    answers: [
-      { id: "9a", label: "Ja, ich habe eine Berufsunfähigkeitsversicherung" },
-      { id: "9b", label: "Schon mal drüber nachgedacht, aber noch nichts gemacht" },
-      { id: "9c", label: "Nein, bisher nicht" },
-      { id: "9d", label: "Was genau ist das?" },
-    ],
-  },
-  {
-    number: 10,
-    text: "Kennst du die Extras, die dein Arbeitgeber anbietet (z. B. betriebliche Altersvorsorge, vermögenswirksame Leistungen)?",
-    answers: [
-      { id: "10a", label: "Ja, und ich nutze sie" },
-      { id: "10b", label: "Ich hab davon gehört, aber noch nichts entschieden" },
-      { id: "10c", label: "Nein, keine Ahnung" },
-      { id: "10d", label: "Ich habe (noch) keinen Arbeitgeber" },
-    ],
-  },
-];
+  } satisfies ChoiceQuestion<ContactId>,
+  contactYes:
+    "Trag deine Kontaktdaten oben im Formular unserer Allianz-Seite ein und setz den Haken bei der Einwilligung – dann melden wir uns bei dir. Oder ruf uns einfach an.",
+  contactYesButton: "Zum Kontaktformular",
+  contactNo: "Alles klar – du erreichst uns jederzeit unter {{phone}}.",
+};

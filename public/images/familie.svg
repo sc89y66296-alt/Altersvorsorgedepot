@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 260">
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#9FD8F0"/>
+      <stop offset="1" stop-color="#EAF7FB"/>
+    </linearGradient>
+  </defs>
+  <rect width="400" height="260" fill="url(#sky)"/>
+  <circle cx="60" cy="56" r="30" fill="#FFD25E"/>
+  <path d="M0 196 Q100 168 200 186 T400 178 V260 H0 Z" fill="#7BC27F"/>
+  <path d="M0 226 Q140 206 260 222 T400 218 V260 H0 Z" fill="#5BA36B"/>
+  <g fill="#FFFFFF"><circle cx="40" cy="228" r="3"/><circle cx="90" cy="236" r="3"/><circle cx="350" cy="232" r="3"/></g>
+  <g fill="#FFD25E"><circle cx="40" cy="228" r="1.3"/><circle cx="90" cy="236" r="1.3"/><circle cx="350" cy="232" r="1.3"/></g>
+  <!-- Drachen -->
+  <path d="M300 40 L322 66 L300 100 L278 66 Z" fill="#E4572E"/>
+  <path d="M278 66 H322 M300 40 V100" stroke="#B83F1E" stroke-width="2"/>
+  <path d="M300 100 Q290 140 270 150 Q250 160 232 176" stroke="#5A3A22" stroke-width="1.6" fill="none"/>
+  <path d="M300 100 q-8 8 0 14 q8 6 0 14" stroke="#007AB3" stroke-width="3" fill="none"/>
+  <!-- Großvater -->
+  <g transform="translate(170 0)">
+    <circle cx="0" cy="104" r="17" fill="#F2C9A0"/>
+    <path d="M-17 100 Q-16 84 0 84 Q16 84 17 100 Q8 94 0 96 Q-8 94 -17 100 Z" fill="#E6E6E6"/>
+    <path d="M-22 128 Q-22 122 -14 122 H14 Q22 122 22 128 V178 H-22 Z" fill="#003781"/>
+    <path d="M-12 178 V218 M12 178 V218" stroke="#4A4A4A" stroke-width="10" stroke-linecap="round"/>
+    <path d="M22 132 L44 162" stroke="#003781" stroke-width="9" stroke-linecap="round"/>
+    <path d="M-22 132 L-34 166" stroke="#003781" stroke-width="9" stroke-linecap="round"/>
+  </g>
+  <!-- Enkelkind -->
+  <g transform="translate(232 0)">
+    <circle cx="0" cy="146" r="13" fill="#F2C9A0"/>
+    <path d="M-13 142 Q-12 130 0 130 Q12 130 13 142 Q4 136 -6 138 Z" fill="#B5651D"/>
+    <path d="M-15 164 Q-15 160 -9 160 H9 Q15 160 15 164 V196 H-15 Z" fill="#FFD25E"/>
+    <path d="M-7 196 V220 M7 196 V220" stroke="#007AB3" stroke-width="8" stroke-linecap="round"/>
+    <path d="M-15 168 L-20 162" stroke="#FFD25E" stroke-width="7" stroke-linecap="round"/>
+    <path d="M15 166 L22 152" stroke="#FFD25E" stroke-width="7" stroke-linecap="round"/>
+    <circle cx="-19" cy="162" r="4" fill="#F2C9A0"/>
+  </g>
+  <!-- Herz -->
+  <path d="M200 64 C194 56 184 59 184 67 C184 75 200 84 200 84 C200 84 216 75 216 67 C216 59 206 56 200 64 Z" fill="#E4572E" opacity="0.85"/>
+</svg>

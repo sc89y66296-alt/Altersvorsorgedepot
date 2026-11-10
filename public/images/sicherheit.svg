@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 260">
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#2B3F73"/>
+      <stop offset="1" stop-color="#8C6FA8"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#FFE7A3" stop-opacity="0.9"/>
+      <stop offset="1" stop-color="#FFE7A3" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="400" height="260" fill="url(#sky)"/>
+  <circle cx="250" cy="46" r="18" fill="#FFF6DA"/>
+  <circle cx="258" cy="40" r="16" fill="#33437A"/>
+  <g fill="#FFFFFF"><circle cx="60" cy="40" r="1.8"/><circle cx="120" cy="28" r="1.5"/><circle cx="180" cy="54" r="1.8"/><circle cx="250" cy="24" r="1.4"/><circle cx="370" cy="96" r="1.6"/><circle cx="30" cy="96" r="1.4"/></g>
+  <path d="M0 214 Q200 190 400 214 V260 H0 Z" fill="#2F5D45"/>
+  <!-- Baum -->
+  <path d="M330 220 V170" stroke="#5A3A22" stroke-width="8"/>
+  <circle cx="330" cy="150" r="32" fill="#3B7A57"/><circle cx="308" cy="166" r="20" fill="#3B7A57"/><circle cx="352" cy="166" r="20" fill="#3B7A57"/>
+  <!-- Haus -->
+  <ellipse cx="190" cy="160" rx="120" ry="80" fill="url(#glow)"/>
+  <rect x="120" y="128" width="140" height="92" fill="#F3E3C8"/>
+  <path d="M106 134 L190 70 L274 134 Z" fill="#B83F1E"/>
+  <rect x="226" y="80" width="16" height="30" fill="#8A3015"/>
+  <path d="M232 76 q-6 -10 4 -18 q10 -8 2 -20" stroke="#D9D2E6" stroke-width="4" fill="none" stroke-linecap="round" opacity="0.7"/>
+  <rect x="172" y="168" width="36" height="52" rx="3" fill="#7A4E2D"/>
+  <circle cx="200" cy="196" r="2.5" fill="#FFD25E"/>
+  <rect x="134" y="148" width="28" height="26" rx="2" fill="#FFD25E"/>
+  <rect x="218" y="148" width="28" height="26" rx="2" fill="#FFD25E"/>
+  <path d="M148 148 V174 M134 161 H162 M232 148 V174 M218 161 H246" stroke="#F3E3C8" stroke-width="3"/>
+  <!-- Herz über dem Haus -->
+  <path d="M190 112 C182 102 170 106 170 116 C170 126 190 136 190 136 C190 136 210 126 210 116 C210 106 198 102 190 112 Z" fill="#FFFFFF"/>
+</svg>

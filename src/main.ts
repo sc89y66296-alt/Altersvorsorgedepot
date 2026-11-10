@@ -1,25 +1,27 @@
 import "./styles.css";
 import { config } from "./config";
-import { questions } from "./content/questions";
-import { evaluate } from "./logic/evaluate";
-import { effectiveAnswers, nextQuestion, previousQuestion } from "./logic/skip";
-import type { Answers } from "./types";
+import { fillPlaceholders, formatNumber } from "./content/copy";
+import { q1, q2, q3, q4 } from "./content/questions";
+import { TOTAL_STEPS, nextStep, previousStep } from "./logic/flow";
+import type { Answers, Step } from "./types";
 import type { View } from "./ui/dom";
+import { el } from "./ui/dom";
 import { isEmbedded, reportScreenChange, startHeightReporting } from "./ui/embed";
+import { renderFinal } from "./ui/final";
 import { renderFooter, renderHeader } from "./ui/layout";
-import { renderQuestion } from "./ui/question";
-import { renderResult } from "./ui/result";
+import { renderPensionSlider } from "./ui/pension";
+import { renderQuestion, type QuestionViewProps } from "./ui/question";
 import { renderStart } from "./ui/start";
 import { applyTheme } from "./ui/theme";
 
-type Screen = { name: "start" } | { name: "question"; number: number } | { name: "result" };
+type Screen = { name: "start" } | { name: "step"; step: Step };
 
-const total = questions.length;
 const main = document.getElementById("main")!;
 
 // Alles liegt nur im Arbeitsspeicher: Neuladen startet den Check von vorn
+const freshAnswers = (): Answers => ({ monthlyIncome: config.incomeSlider.start });
 let screen: Screen = { name: "start" };
-let given: Answers = {}; // nur selbst gegebene Antworten; automatische kommen aus effectiveAnswers()
+let answers: Answers = freshAnswers();
 let firstRender = true;
 
 function show(next: Screen): void {
@@ -27,38 +29,87 @@ function show(next: Screen): void {
   render();
 }
 
-function goToQuestionAfter(current: number): void {
-  const next = nextQuestion(current, given, total);
-  show(next === null ? { name: "result" } : { name: "question", number: next });
+function goTo(step: Step | null): void {
+  if (step !== null) show({ name: "step", step });
 }
 
 function restart(): void {
-  given = {};
+  answers = freshAnswers();
   show({ name: "start" });
 }
 
-function currentView(): View {
-  switch (screen.name) {
-    case "start":
-      return renderStart(() => goToQuestionAfter(0));
-    case "question": {
-      const number = screen.number;
-      const previous = previousQuestion(number, given);
+function update(patch: Partial<Answers>): void {
+  answers = { ...answers, ...patch };
+}
+
+function stepView(step: Step): View {
+  const base = {
+    step,
+    total: TOTAL_STEPS,
+    canGoBack: previousStep(step, answers) !== null,
+    onNext: () => goTo(nextStep(step, answers)),
+    onBack: () => goTo(previousStep(step, answers)),
+  } satisfies Partial<QuestionViewProps>;
+
+  switch (step) {
+    case 1:
       return renderQuestion({
-        question: questions[number - 1],
-        total,
-        selected: given[number],
-        canGoBack: previous !== null,
-        onSelect: (answer) => {
-          given = { ...given, [number]: answer };
-        },
-        onNext: () => goToQuestionAfter(number),
-        onBack: () => previous !== null && show({ name: "question", number: previous }),
+        ...base,
+        topic: q1.topic,
+        title: "Wie viel gesetzliche Rente kannst du erwarten?",
+        intro: [renderPensionSlider(answers.monthlyIncome, (income) => update({ monthlyIncome: income }))],
+        legend: q1.question.text,
+        answers: q1.question.answers,
+        selected: answers.satisfaction,
+        onSelect: (id) => update({ satisfaction: id as Answers["satisfaction"] }),
+      });
+    case 2:
+      return renderQuestion({
+        ...base,
+        topic: q2.topic,
+        title: q2.text,
+        answers: q2.answers,
+        selected: answers.goal,
+        onSelect: (id) => update({ goal: id as Answers["goal"] }),
+      });
+    case 3:
+      return renderQuestion({
+        ...base,
+        topic: q3.topic,
+        title: q3.text,
+        answers: q3.answers,
+        selected: answers.priority,
+        onSelect: (id) => update({ priority: id as Answers["priority"] }),
+      });
+    case 4: {
+      // Frage 4 wird nur nach „Förderung“ oder „Flexibilität“ gezeigt
+      const info = q4.info[answers.priority === "flexibilitaet" ? "flexibilitaet" : "foerderung"];
+      const values = Object.fromEntries(Object.entries(config.funding).map(([k, v]) => [k, formatNumber(v)]));
+      return renderQuestion({
+        ...base,
+        topic: q4.topic,
+        title: fillPlaceholders(info.title, values),
+        intro: [el("div", { class: "info-box" }, ...info.text.map((t) => el("p", {}, fillPlaceholders(t, values))))],
+        legend: q4.question.text,
+        answers: q4.question.answers,
+        selected: answers.talk,
+        onSelect: (id) => update({ talk: id as Answers["talk"] }),
       });
     }
-    case "result":
-      return renderResult(evaluate(effectiveAnswers(given)), restart);
+    case 5:
+      return renderFinal({
+        step,
+        total: TOTAL_STEPS,
+        answers,
+        onContact: (contact) => update({ contact }),
+        onBack: base.onBack,
+        onRestart: restart,
+      });
   }
+}
+
+function currentView(): View {
+  return screen.name === "start" ? renderStart(() => goTo(1)) : stepView(screen.step);
 }
 
 function render(): void {

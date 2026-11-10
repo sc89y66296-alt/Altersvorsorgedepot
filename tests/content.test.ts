@@ -52,7 +52,7 @@ describe("Inhalte", () => {
       agencyLocation: config.agencyLocation,
       appointmentDurationMinutes: config.appointmentDurationMinutes,
     });
-    expect(text).toContain("bei uns in der Allianzagentur Thomas Lang in Spiegelau, bei dir zu Hause oder per Video.");
+    expect(text).toContain("bei uns in der Agentur in Spiegelau, bei dir zu Hause oder per Video.");
     expect(text).toContain("Ca. 30 Minuten, ganz ohne Verpflichtung.");
     expect(text).not.toContain("{{");
   });

@@ -130,7 +130,7 @@ export const q4 = {
 export const q5 = {
   topic: "Dein nächster Schritt",
   intro:
-    "Jede Situation ist anders. In einem kostenlosen Orientierungsgespräch schauen wir gemeinsam, was zu dir passt – bei uns in der {{agencyName}} in {{agencyLocation}}, bei dir zu Hause oder per Video. Ca. {{appointmentDurationMinutes}} Minuten, ganz ohne Verpflichtung.",
+    "Jede Situation ist anders. In einem kostenlosen Orientierungsgespräch schauen wir gemeinsam, was zu dir passt – bei uns in der Agentur in {{agencyLocation}}, bei dir zu Hause oder per Video. Ca. {{appointmentDurationMinutes}} Minuten, ganz ohne Verpflichtung.",
   goalLine: {
     urlaub: "Damit der Traum vom Leben am Meer im Ruhestand wahr wird, lohnt sich ein früher Blick auf deine Lücke.",
     reisen: "Damit du im Ruhestand reisen und Urlaub machen kannst, lohnt sich ein früher Blick auf deine Lücke.",
@@ -138,7 +138,7 @@ export const q5 = {
     familie: "Damit du im Alter auch deine Familie unterstützen kannst, lohnt sich ein früher Blick auf deine Lücke.",
   } satisfies Record<GoalId, string>,
   contact: {
-    text: "Dürfen wir uns proaktiv bei dir melden?",
+    text: "Dürfen wir uns bei dir melden?",
     answers: [
       { id: "ja", label: "Ja, meldet euch gerne bei mir" },
       { id: "nein", label: "Nein, ich vereinbare selbst einen Termin" },

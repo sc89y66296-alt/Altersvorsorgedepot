@@ -12,7 +12,7 @@ Entstanden als Kopie des Selbstchecks [Versicherungscheck](https://github.com/sc
 | 2 | Was ist dir im Alter am wichtigsten? Vier Bildkarten mit Bildunterschrift (Auswandern ans Meer, Reisen & Urlaub, Sicherheit, Familie) |
 | 3 | Förderung, Flexibilität oder „Ich möchte erst mehr wissen“ |
 | 4 | Je nach Frage 3: Altersvorsorgedepot (Zulagen), Privatrente (Flexibilität, Steuervorteile) oder bei „mehr wissen“ beides untereinander – „Möchtest du darüber sprechen?“ „Erst mal nicht“ beendet den Check ohne Nachfrage |
-| 5 | „Dürfen wir uns proaktiv bei dir melden?“ – Ja: Link zum Kontaktformular, Nein: Link zur Online-Terminbuchung. Dazu Einladung zum Orientierungsgespräch und Zusammenfassung |
+| 5 | „Dürfen wir uns bei dir melden?“ – Ja: Link zum Kontaktformular, Nein: Link zur Online-Terminbuchung. Dazu Einladung zum Orientierungsgespräch und Zusammenfassung |
 | Ende | Abschlussseite für beide Ausstiege: Dank, Zusammenfassung und ein unaufdringlicher Hinweis (Termin-Link, Telefon) – kein großer Termin-Button |
 
 **Rentenschätzung (Frage 1):** Einkommen (bis zur Beitragsbemessungsgrenze) ÷ Durchschnittsentgelt × 12 × 45 Jahre × aktueller Rentenwert. Gerechnet wird mit heutigen Werten, brutto. Die Werte stehen in `src/config.ts` unter `pension` und sollten einmal im Jahr aktualisiert werden.

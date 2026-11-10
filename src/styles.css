@@ -638,6 +638,25 @@ a {
   margin-top: 1.5rem;
 }
 
+/* Abschlussseite: unaufdringlicher Hinweis statt großem Termin-Button */
+.later {
+  margin: 1.5rem 0;
+}
+
+.later-heading {
+  margin-bottom: 0.25rem;
+  font-weight: 600;
+}
+
+.later-links {
+  margin: 0;
+  padding-left: 1.25rem;
+}
+
+.later-links li {
+  margin: 0.25rem 0;
+}
+
 .screen-final > .disclaimer {
   margin-top: 1.5rem;
 }

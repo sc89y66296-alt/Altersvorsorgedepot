@@ -26,6 +26,9 @@ export const config = {
     contributionCeilingMonthly: 8450, // Beitragsbemessungsgrenze 2026 pro Monat
     workingYears: 45, // Beitragsjahre der „Standardrente“
     pensionLevelPercent: 48, // Rentenniveau (Haltelinie)
+    // Anteil Kranken- und Pflegeversicherung, den Rentner:innen selbst zahlen (gerundet):
+    // KV 7,3 % + halber Zusatzbeitrag (Ø 2,9 % → 1,45 %) + PV 3,6 % ≈ 12 %
+    healthCareSharePercent: 12,
   },
   // Förderung im Altersvorsorgedepot ab 2027 (Text bei Frage 4)
   funding: {

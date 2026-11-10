@@ -1,12 +1,14 @@
 import "./styles.css";
 import { config } from "./config";
 import { fillPlaceholders, formatNumber } from "./content/copy";
-import { q1, q2, q3, q4 } from "./content/questions";
-import { TOTAL_STEPS, infoTopics, nextStep, previousStep } from "./logic/flow";
-import type { Answers, Step } from "./types";
+import { q1, q1Sure, q2, q3, q4 } from "./content/questions";
+import { TOTAL_STEPS, endReason, infoTopics, nextPlace, previousPlace } from "./logic/flow";
+import { estimatePension } from "./logic/pension";
+import type { Answers, Place } from "./types";
 import type { View } from "./ui/dom";
 import { el } from "./ui/dom";
 import { isEmbedded, reportScreenChange, startHeightReporting } from "./ui/embed";
+import { renderEnd } from "./ui/end";
 import { renderFinal } from "./ui/final";
 import { renderFooter, renderHeader } from "./ui/layout";
 import { renderPensionFootnote, renderPensionSlider } from "./ui/pension";
@@ -14,7 +16,7 @@ import { renderQuestion, type QuestionViewProps } from "./ui/question";
 import { renderStart } from "./ui/start";
 import { applyTheme } from "./ui/theme";
 
-type Screen = { name: "start" } | { name: "step"; step: Step };
+type Screen = { name: "start" } | { name: "place"; place: Place };
 
 const main = document.getElementById("main")!;
 
@@ -29,8 +31,8 @@ function show(next: Screen): void {
   render();
 }
 
-function goTo(step: Step | null): void {
-  if (step !== null) show({ name: "step", step });
+function goTo(place: Place | null): void {
+  if (place !== null) show({ name: "place", place });
 }
 
 function restart(): void {
@@ -42,16 +44,16 @@ function update(patch: Partial<Answers>): void {
   answers = { ...answers, ...patch };
 }
 
-function stepView(step: Step): View {
+function placeView(place: Place): View {
   const base = {
-    step,
+    step: place === "sicher" ? 1 : typeof place === "number" ? place : TOTAL_STEPS,
     total: TOTAL_STEPS,
-    canGoBack: previousStep(step, answers) !== null,
-    onNext: () => goTo(nextStep(step, answers)),
-    onBack: () => goTo(previousStep(step, answers)),
+    canGoBack: previousPlace(place, answers) !== null,
+    onNext: () => goTo(nextPlace(place, answers)),
+    onBack: () => goTo(previousPlace(place, answers)),
   } satisfies Partial<QuestionViewProps>;
 
-  switch (step) {
+  switch (place) {
     case 1:
       return renderQuestion({
         ...base,
@@ -64,6 +66,33 @@ function stepView(step: Step): View {
         selected: answers.satisfaction,
         onSelect: (id) => update({ satisfaction: id as Answers["satisfaction"] }),
       });
+    case "sicher": {
+      // Einmal nachfragen, ob die gesetzliche Rente wirklich reicht
+      const p = config.pension;
+      const pension = estimatePension(answers.monthlyIncome, p).monthlyPension;
+      const values = {
+        pension: formatNumber(pension),
+        share: p.healthCareSharePercent,
+        net: formatNumber(Math.round((pension * (100 - p.healthCareSharePercent)) / 100)),
+        years: p.workingYears,
+      };
+      return renderQuestion({
+        ...base,
+        topic: q1Sure.topic,
+        title: q1Sure.title,
+        intro: [
+          el(
+            "div",
+            { class: "info-boxes" },
+            el("div", { class: "info-box" }, ...q1Sure.facts.map((f) => el("p", {}, fillPlaceholders(f, values)))),
+          ),
+        ],
+        legend: q1Sure.question.text,
+        answers: q1Sure.question.answers,
+        selected: answers.sure,
+        onSelect: (id) => update({ sure: id as Answers["sure"] }),
+      });
+    }
     case 2:
       return renderQuestion({
         ...base,
@@ -109,18 +138,20 @@ function stepView(step: Step): View {
     }
     case 5:
       return renderFinal({
-        step,
+        step: place,
         total: TOTAL_STEPS,
         answers,
         onContact: (contact) => update({ contact }),
         onBack: base.onBack,
         onRestart: restart,
       });
+    case "ende":
+      return renderEnd({ reason: endReason(answers), answers, onBack: base.onBack, onRestart: restart });
   }
 }
 
 function currentView(): View {
-  return screen.name === "start" ? renderStart(() => goTo(1)) : stepView(screen.step);
+  return screen.name === "start" ? renderStart(() => goTo(1)) : placeView(screen.place);
 }
 
 function render(): void {

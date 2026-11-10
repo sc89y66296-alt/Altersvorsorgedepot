@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { config } from "../src/config";
 import { fillPlaceholders, formatNumber } from "../src/content/copy";
-import { q1, q2, q3, q4, q5 } from "../src/content/questions";
+import { ending, q1, q1Sure, q2, q3, q4, q5 } from "../src/content/questions";
 import { contrastRatio } from "../src/logic/contrast";
 
 describe("Inhalte", () => {
@@ -10,9 +10,17 @@ describe("Inhalte", () => {
     expect(q2.answers.map((a) => a.id)).toEqual(["urlaub", "reisen", "sicherheit", "familie"]);
     expect(q3.answers.map((a) => a.id)).toEqual(["foerderung", "flexibilitaet", "unsicher"]);
     expect(q4.question.answers.map((a) => a.id)).toEqual(["ja", "spaeter"]);
+    expect(q1Sure.question.answers.map((a) => a.id)).toEqual(["weiter", "beenden"]);
     expect(q5.contact.answers.map((a) => a.id)).toEqual(["ja", "nein"]);
     for (const list of [q1.question.answers, q2.answers, q3.answers, q4.question.answers, q5.contact.answers]) {
       for (const a of list) expect(a.label.trim()).not.toBe("");
+    }
+  });
+
+  it("die Abschlussseite hat für beide Ausstiege Überschrift und Text", () => {
+    for (const reason of ["zufrieden", "spaeter"] as const) {
+      expect(ending.reasons[reason].title.trim()).not.toBe("");
+      expect(ending.reasons[reason].text.trim()).not.toBe("");
     }
   });
 

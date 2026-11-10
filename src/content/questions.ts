@@ -2,7 +2,7 @@
 // die Kürzel (id) sind interne IDs, an denen die Ablauf-Logik hängt.
 // {{…}} sind Platzhalter, die aus src/config.ts befüllt werden.
 
-import type { ContactId, GoalId, PriorityId, SatisfactionId, TalkId } from "../types";
+import type { ContactId, EndReason, GoalId, PriorityId, SatisfactionId, SureId, TalkId } from "../types";
 
 export interface Answer<Id extends string = string> {
   id: Id;
@@ -35,6 +35,23 @@ export const q1 = {
       { id: "mehr", label: "Nein, ich hätte gern mehr" },
     ],
   } satisfies ChoiceQuestion<SatisfactionId>,
+};
+
+// Nachfrage nach „Ja, das würde mir reichen“ (Frage 1)
+export const q1Sure = {
+  topic: "Kurz nachgefragt",
+  title: "Bist du dir sicher?",
+  facts: [
+    "Von den geschätzten {{pension}} € gehen im Alter noch rund {{share}} % für Kranken- und Pflegeversicherung ab – übrig bleiben etwa {{net}} € im Monat. Je nach Einkommen kommen noch Steuern dazu.",
+    "Die Schätzung geht von {{years}} lückenlosen Beitragsjahren aus. Studium, Teilzeit, Elternzeit oder Arbeitslosigkeit senken die Rente oft deutlich.",
+  ],
+  question: {
+    text: "Wie möchtest du weitermachen?",
+    answers: [
+      { id: "weiter", label: "Stimmt, ich schaue doch weiter" },
+      { id: "beenden", label: "Ja, ich bin mir sicher – Check beenden" },
+    ],
+  } satisfies ChoiceQuestion<SureId>,
 };
 
 export const q2: ChoiceQuestion<GoalId> = {
@@ -135,4 +152,22 @@ export const q5 = {
     text: "Dann such dir direkt in unserem Kalender einen passenden Termin aus – bei dir zu Hause, bei uns in der Agentur oder online. Kostenlos und unverbindlich.",
     button: "Termin online vereinbaren",
   },
+};
+
+// Abschlussseite für die beiden Ausstiege (Frage 1 „reicht mir“ + sicher, Frage 4 „Erst mal nicht“)
+export const ending = {
+  topic: "Danke fürs Mitmachen",
+  reasons: {
+    zufrieden: {
+      title: "Schön, dass du dich gut aufgestellt fühlst",
+      text: "Dann wünschen wir dir alles Gute für deine Pläne. Wenn sich etwas ändert, etwa ein neuer Job, Familie oder andere Ziele, lohnt sich ein neuer Blick auf deine Rente.",
+    },
+    spaeter: {
+      title: "Alles klar – danke fürs Mitmachen",
+      text: "Kein Problem: Du entscheidest selbst, wann das Thema für dich dran ist. Wenn du später Fragen hast, sind wir gern für dich da.",
+    },
+  } satisfies Record<EndReason, { title: string; text: string }>,
+  laterHeading: "Falls du es dir anders überlegst:",
+  bookingLink: "Termin online buchen",
+  callLink: "Anrufen: {{phone}}",
 };

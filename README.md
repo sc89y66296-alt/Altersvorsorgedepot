@@ -8,11 +8,12 @@ Entstanden als Kopie des Selbstchecks [Versicherungscheck](https://github.com/sc
 
 | Frage | Inhalt |
 | --- | --- |
-| 1 | Schieberegler fürs Bruttoeinkommen, live berechnete gesetzliche Rente und Lücke – „Wärst du damit zufrieden?“ |
+| 1 | Schieberegler fürs Bruttoeinkommen, live berechnete gesetzliche Rente und Lücke – „Wärst du damit zufrieden?“ Bei „Ja, das würde mir reichen“ folgt einmal „Bist du dir sicher?“ (Abzüge für Kranken-/Pflegeversicherung, Beitragslücken): weiter zu Frage 2 oder Check beenden |
 | 2 | Was ist dir im Alter am wichtigsten? Vier Bildkarten mit Bildunterschrift (Auswandern ans Meer, Reisen & Urlaub, Sicherheit, Familie) |
 | 3 | Förderung, Flexibilität oder „Ich möchte erst mehr wissen“ |
-| 4 | Je nach Frage 3: Altersvorsorgedepot (Zulagen), Privatrente (Flexibilität, Steuervorteile) oder bei „mehr wissen“ beides untereinander – „Möchtest du darüber sprechen?“ |
+| 4 | Je nach Frage 3: Altersvorsorgedepot (Zulagen), Privatrente (Flexibilität, Steuervorteile) oder bei „mehr wissen“ beides untereinander – „Möchtest du darüber sprechen?“ „Erst mal nicht“ beendet den Check ohne Nachfrage |
 | 5 | „Dürfen wir uns proaktiv bei dir melden?“ – Ja: Link zum Kontaktformular, Nein: Link zur Online-Terminbuchung. Dazu Einladung zum Orientierungsgespräch und Zusammenfassung |
+| Ende | Abschlussseite für beide Ausstiege: Dank, Zusammenfassung und ein unaufdringlicher Hinweis (Termin-Link, Telefon) – kein großer Termin-Button |
 
 **Rentenschätzung (Frage 1):** Einkommen (bis zur Beitragsbemessungsgrenze) ÷ Durchschnittsentgelt × 12 × 45 Jahre × aktueller Rentenwert. Gerechnet wird mit heutigen Werten, brutto. Die Werte stehen in `src/config.ts` unter `pension` und sollten einmal im Jahr aktualisiert werden.
 
@@ -153,8 +154,8 @@ Bei Website-Baukästen (z. B. WordPress-Block „Individuelles HTML“) lässt s
 ## 7. Fachliche Entscheidungen bei der Umsetzung
 
 - **Rentenschätzung brutto, in heutigen Werten:** Die Rente wird mit dem aktuellen Rentenwert gerechnet, nicht hochgerechnet. Das Rentenniveau von 48 % bezieht sich auf den Durchschnittsverdienst nach Sozialabgaben; im Verhältnis zum Brutto ergibt die Schätzung deshalb ca. 43 %. Ein Hinweis unter dem Ergebnis erklärt das.
-- **Frage 1 bleibt beantwortbar für alle:** Auch „Ja, das würde mir reichen“ führt weiter zu Frage 2.
-- **Frage 4 „Erst mal nicht“** führt trotzdem zu Frage 5, weil dort das Gespräch noch einmal in Ruhe angeboten wird.
+- **Zwei Ausstiege:** „Ja, das würde mir reichen“ (Frage 1) wird einmal nachgefragt, weil viele die Abzüge im Alter unterschätzen. „Erst mal nicht“ (Frage 4) beendet den Check ohne Nachfrage – ein zweites Nachhaken würde dort aufdringlich wirken.
+- **Abzug Kranken-/Pflegeversicherung** bei der Nachfrage: pauschal `pension.healthCareSharePercent` (12 %) aus `src/config.ts`.
 - **Kein automatisches Weiterspringen:** Ein Klick auf eine Antwort wählt sie nur aus, weiter geht es mit „Weiter“ oder Enter.
 - **Fußzeile** (Impressum, Datenschutz, Erstinformation) ist auf allen Screens sichtbar.
 

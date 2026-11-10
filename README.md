@@ -12,11 +12,11 @@ Entstanden als Kopie des Selbstchecks [Versicherungscheck](https://github.com/sc
 | 2 | Was ist dir im Alter am wichtigsten? Vier Bildkarten mit Bildunterschrift (Urlaub, Reisen, Sicherheit, Familie) |
 | 3 | Förderung oder Flexibilität? „Ich bin mir unsicher“ springt direkt zu Frage 5 |
 | 4 | Je nach Frage 3: Altersvorsorgedepot (Zulagen) oder Privatrente (Flexibilität, Steuervorteile) – „Möchtest du darüber sprechen?“ |
-| 5 | Orientierungsgespräch (in der Agentur in Spiegelau, beim Kunden zu Hause oder per Video), Terminbuchung, „Dürfen wir uns melden?“ |
+| 5 | „Dürfen wir uns proaktiv bei dir melden?“ – Ja: Link zum Kontaktformular, Nein: Link zur Online-Terminbuchung. Dazu Einladung zum Orientierungsgespräch und Zusammenfassung |
 
 **Rentenschätzung (Frage 1):** Einkommen (bis zur Beitragsbemessungsgrenze) ÷ Durchschnittsentgelt × 12 × 45 Jahre × aktueller Rentenwert. Gerechnet wird mit heutigen Werten, brutto. Die Werte stehen in `src/config.ts` unter `pension` und sollten einmal im Jahr aktualisiert werden.
 
-**Terminvereinbarung und „Dürfen wir uns melden?“ (Frage 5):** Es gibt keinen eigenen Server. Nach einem Klick auf „Termin vereinbaren“ wird die Allianz-vor-Ort-Seite der Agentur (`bookingUrl`) eingebettet: Dort gibt es die Online-Terminbuchung und ein Kontaktformular mit Einwilligung. Bei „Ja, meldet euch“ führt ein Button genau dorthin; zusätzlich gibt es den Anruf-Button.
+**Frage 5:** Es gibt keinen eigenen Server und nichts wird eingebettet. „Ja, meldet euch gerne bei mir“ zeigt einen Button zum Kontaktformular der Allianz-vor-Ort-Seite (`contactFormUrl`, mit Einwilligung), „Nein, ich vereinbare selbst einen Termin“ einen Button direkt zum Allianz-Buchungskalender bei bookingtime (`bookingUrl`). Beide öffnen sich in einem neuen Tab; zusätzlich gibt es jeweils den Anruf-Button.
 
 - Läuft komplett im Browser, ohne Server, Datenbank, Cookies oder Tracking.
 - Antworten werden nirgends gespeichert. Ein Neuladen der Seite startet den Check von vorn.
@@ -74,12 +74,12 @@ Alle agenturspezifischen Werte stehen in **`src/config.ts`**. Alles mit `TODO` m
 | --- | --- |
 | `agencyName` | Name der Agentur (oben auf der Seite, wenn kein Logo gesetzt ist) |
 | `logoUrl` | Logo, leer lassen = kein Logo. Am besten die Logo-Datei in den Ordner `public/` legen und hier nur den Dateinamen eintragen, z. B. `"logo.svg"` |
-| `bookingUrl` | Allianz-vor-Ort-Seite für die Terminvereinbarung (wird bei Frage 5 nach einem Klick eingebettet) |
-| `bookingFrameOrigins` | Adressen, die als iframe geladen werden dürfen (Content-Security-Policy) – bei einer neuen Terminseite mit anpassen |
+| `contactFormUrl` | Allianz-vor-Ort-Seite mit Kontaktformular (Frage 5, Antwort „Ja, meldet euch“) |
+| `bookingUrl` | Allianz-Buchungskalender der Agentur bei bookingtime (Frage 5, Antwort „Nein, ich vereinbare selbst einen Termin“) |
 | `phone`, `phoneHref` | Telefonnummer zum Anzeigen und als Anruf-Link (`tel:+49…`) |
 | `imprintUrl`, `privacyUrl`, `initialInfoUrl` | Links im Fuß: Impressum, Datenschutz, Erstinformation |
 | `appointmentDurationMinutes` | Termindauer in der Einladung („Ca. 30 Minuten …“) |
-| `agencyLocation` | Ort der Agentur für die Einladung bei Frage 5 („… nach Spiegelau“) |
+| `agencyLocation` | Ort der Agentur für die Einladung bei Frage 5 („… in Spiegelau“) |
 | `incomeSlider` | Bereich, Schrittweite und Startwert des Einkommens-Schiebereglers |
 | `pension` | Rentenwert, Durchschnittsentgelt, Beitragsbemessungsgrenze, Beitragsjahre, Rentenniveau |
 | `funding` | Förderbeträge des Altersvorsorgedepots (Grundzulage, nötiger Eigenbeitrag, Kinderzulage) |
@@ -102,7 +102,7 @@ Die Bilder zu Frage 2 liegen in `public/images/` (selbst gezeichnete Illustratio
 | Was | Datei |
 | --- | --- |
 | Fragen, Antworten, Info-Texte zu Förderung und Privatrente, letzte Seite | `src/content/questions.ts` |
-| Startseite, Buttons, Zusammenfassung, Terminbuchung, Disclaimer | `src/content/copy.ts` |
+| Startseite, Buttons, Zusammenfassung, Disclaimer | `src/content/copy.ts` |
 
 Nur den Text zwischen den Anführungszeichen ändern. Die Kürzel (`id: "foerderung"` usw.) bitte **nicht** ändern – der Ablauf hängt daran (`src/logic/flow.ts`).
 
@@ -145,7 +145,7 @@ Bei Website-Baukästen (z. B. WordPress-Block „Individuelles HTML“) lässt s
 
 - Keine Cookies, kein `localStorage`/`sessionStorage`, keine Anfragen an fremde Server, keine externen Schriften.
 - Der gebaute Check enthält eine Content-Security-Policy, die Netzwerkanfragen aus dem Skript heraus technisch blockiert.
-- Terminvereinbarung: Erst nach dem Klick auf „Termin vereinbaren“ wird die Allianz-Seite (allianz-vor-ort.de) als iframe geladen – vorher gibt es keine Verbindung dorthin. Angaben aus dem Check werden nicht übergeben, ein Referrer wird nicht gesendet. Die Content-Security-Policy erlaubt iframes nur von den Adressen in `bookingFrameOrigins`. Was jemand dort eingibt (Kontaktformular, Termin), verarbeitet die Allianz nach ihren eigenen Datenschutzhinweisen; die eingebettete Seite zeigt auch ein eigenes Cookie-Banner.
+- Frage 5: Kontaktformular (allianz-vor-ort.de) und Buchungskalender (Allianz-Dienstleister bookingtime) öffnen sich erst nach einem Klick in einem neuen Tab – vorher gibt es keine Verbindung dorthin. Angaben aus dem Check werden nicht übergeben, ein Referrer wird nicht gesendet. Was jemand dort eingibt, verarbeiten die Allianz bzw. bookingtime nach ihren eigenen Datenschutzhinweisen; die Datenschutzerklärung der Agentur sollte bookingtime nennen. Der Check selbst lädt keine fremden Seiten (Content-Security-Policy: `frame-src 'none'`).
 - Wie bei jeder Webseite protokolliert der Webserver ggf. IP-Adressen in seinen Log-Dateien – das ist Sache des Hosters und gehört in die bestehende Datenschutzerklärung der Website.
 - Das Einkommen aus Frage 1 bleibt im Browser und wird nirgends hin übertragen.
 - Wird ein Logo von einer fremden Adresse geladen (`logoUrl` mit `https://…` einer anderen Domain), ist das eine externe Anfrage. Deshalb das Logo besser in `public/` ablegen.
@@ -158,7 +158,11 @@ Bei Website-Baukästen (z. B. WordPress-Block „Individuelles HTML“) lässt s
 - **Kein automatisches Weiterspringen:** Ein Klick auf eine Antwort wählt sie nur aus, weiter geht es mit „Weiter“ oder Enter.
 - **Fußzeile** (Impressum, Datenschutz, Erstinformation) ist auf allen Screens sichtbar.
 
-## 8. Projektstruktur
+## 8. QR-Code
+
+Im Ordner `qr-code/` liegen ein reiner QR-Code und eine Aushang-Karte (1080 × 1350, Allianz-Farben), jeweils als SVG (für den Druck, beliebig skalierbar) und PNG. Beide verweisen auf die GitHub-Pages-Adresse https://sc89y66296-alt.github.io/Altersvorsorgedepot/. Zieht der Check später auf die Agentur-Website um, muss der QR-Code neu erzeugt werden.
+
+## 9. Projektstruktur
 
 ```
 index.html            Grundgerüst der Seite
@@ -168,4 +172,5 @@ src/logic/            Rentenschätzung, Ablauf, Zusammenfassung (ohne Oberfläch
 src/ui/               Darstellung der Screens
 src/styles.css        Gestaltung
 tests/                Automatische Tests (npm test)
+qr-code/              QR-Code und Aushang-Karte
 ```

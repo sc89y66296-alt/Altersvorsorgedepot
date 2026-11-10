@@ -44,16 +44,25 @@ describe("Inhalte", () => {
       agencyLocation: config.agencyLocation,
       appointmentDurationMinutes: config.appointmentDurationMinutes,
     });
-    expect(text).toContain("zu uns in die Allianzagentur Thomas Lang nach Spiegelau – oder wir kommen zu dir nach Hause.");
+    expect(text).toContain("bei uns in der Allianzagentur Thomas Lang in Spiegelau, bei dir zu Hause oder per Video.");
     expect(text).toContain("Ca. 30 Minuten, ganz ohne Verpflichtung.");
     expect(text).not.toContain("{{");
   });
 
-  it("die Terminseite ist eine https-Adresse und in der Content-Security-Policy erlaubt", () => {
-    const url = new URL(config.bookingUrl);
-    expect(url.protocol).toBe("https:");
-    expect(url.hostname).toBe("www.allianz-vor-ort.de");
-    for (const origin of config.bookingFrameOrigins) expect(origin).toMatch(/^https:\/\/[^/]+$/);
+  it("Frage 5: Ja führt zum Kontaktformular, Nein zur Terminbuchung", () => {
+    expect(q5.contact.answers.map((a) => a.label)).toEqual([
+      "Ja, meldet euch gerne bei mir",
+      "Nein, ich vereinbare selbst einen Termin",
+    ]);
+    expect(q5.yes.button).toBe("Zum Kontaktformular");
+    expect(q5.no.button).toBe("Termin online vereinbaren");
+    const form = new URL(config.contactFormUrl);
+    expect(form.hostname).toBe("www.allianz-vor-ort.de");
+    expect(form.searchParams.get("homepagekey")).toBe("thomas.lang1");
+    const booking = new URL(config.bookingUrl);
+    expect(booking.hostname).toBe("booking.allianz-abv.eps.bookingtime.com");
+    expect(booking.searchParams.get("vtnr")).toBe("703400444");
+    for (const url of [form, booking]) expect(url.protocol).toBe("https:");
     expect(config.phoneHref).toMatch(/^tel:\+\d+$/);
   });
 });

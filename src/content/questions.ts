@@ -106,27 +106,30 @@ export const q4 = {
   } satisfies ChoiceQuestion<TalkId>,
 };
 
-// Frage 5: Orientierungsgespräch, Terminbuchung und Rückmelde-Erlaubnis
+// Frage 5: Rückmelde-Erlaubnis – führt zum Kontaktformular (Ja) oder zur Online-Terminbuchung (Nein)
 export const q5 = {
   topic: "Dein nächster Schritt",
-  title: "Jede Situation ist anders",
   intro:
-    "Ob das Altersvorsorgedepot, eine private Rente oder eine Kombination für dich passt, hängt von deinem Einkommen, deiner Familie und deinen Plänen ab. Komm gerne auf ein kostenloses Orientierungsgespräch zu uns in die {{agencyName}} nach {{agencyLocation}} – oder wir kommen zu dir nach Hause. Auch per Video ist das möglich. Ca. {{appointmentDurationMinutes}} Minuten, ganz ohne Verpflichtung.",
+    "Jede Situation ist anders. In einem kostenlosen Orientierungsgespräch schauen wir gemeinsam, was zu dir passt – bei uns in der {{agencyName}} in {{agencyLocation}}, bei dir zu Hause oder per Video. Ca. {{appointmentDurationMinutes}} Minuten, ganz ohne Verpflichtung.",
   goalLine: {
-    urlaub: "Damit im Ruhestand genug Zeit und Geld für Urlaub bleibt, lohnt sich ein früher Blick auf die Lücke.",
-    reisen: "Damit du im Ruhestand die Welt entdecken kannst, lohnt sich ein früher Blick auf die Lücke.",
-    sicherheit: "Damit du im Alter ohne Geldsorgen lebst, lohnt sich ein früher Blick auf die Lücke.",
-    familie: "Damit du im Alter auch deine Familie unterstützen kannst, lohnt sich ein früher Blick auf die Lücke.",
+    urlaub: "Damit im Ruhestand genug Geld für Urlaub bleibt, lohnt sich ein früher Blick auf deine Lücke.",
+    reisen: "Damit du im Ruhestand die Welt entdecken kannst, lohnt sich ein früher Blick auf deine Lücke.",
+    sicherheit: "Damit du im Alter ohne Geldsorgen lebst, lohnt sich ein früher Blick auf deine Lücke.",
+    familie: "Damit du im Alter auch deine Familie unterstützen kannst, lohnt sich ein früher Blick auf deine Lücke.",
   } satisfies Record<GoalId, string>,
   contact: {
     text: "Dürfen wir uns proaktiv bei dir melden?",
     answers: [
       { id: "ja", label: "Ja, meldet euch gerne bei mir" },
-      { id: "nein", label: "Nein, ich melde mich selbst" },
+      { id: "nein", label: "Nein, ich vereinbare selbst einen Termin" },
     ],
   } satisfies ChoiceQuestion<ContactId>,
-  contactYes:
-    "Trag deine Kontaktdaten oben im Formular unserer Allianz-Seite ein und setz den Haken bei der Einwilligung – dann melden wir uns bei dir. Oder ruf uns einfach an.",
-  contactYesButton: "Zum Kontaktformular",
-  contactNo: "Alles klar – du erreichst uns jederzeit unter {{phone}}.",
+  yes: {
+    text: "Prima! Trag im Kontaktformular unserer Allianz-Seite kurz deine Daten ein und setz den Haken bei der Einwilligung – dann melden wir uns bei dir.",
+    button: "Zum Kontaktformular",
+  },
+  no: {
+    text: "Dann such dir direkt in unserem Kalender einen passenden Termin aus – bei dir zu Hause, bei uns in der Agentur oder online. Kostenlos und unverbindlich.",
+    button: "Termin online vereinbaren",
+  },
 };

@@ -5,11 +5,11 @@ export const config = {
   agencyName: "Allianzagentur Thomas Lang",
   agencyLocation: "Spiegelau", // Ort der Agentur (Einladung bei Frage 5)
   logoUrl: "", // TODO: von der Agentur ausfüllen – leer = kein Logo (Logo-Datei am besten in den Ordner public/ legen, z. B. "logo.svg")
-  // Terminvereinbarung bei Frage 5: Allianz-vor-Ort-Seite der Agentur, wird nach einem Klick eingebettet.
-  bookingUrl: "https://www.allianz-vor-ort.de/landingpage/zsm/managed/screen-lcQn_ytPR5613qf14pGtdA?homepagekey=thomas.lang1",
-  // Adressen, von denen die eingebettete Seite geladen werden darf (Content-Security-Policy).
-  // allianz-vor-ort.de leitet von www. auf die Adresse ohne www. weiter – deshalb beide.
-  bookingFrameOrigins: ["https://www.allianz-vor-ort.de", "https://allianz-vor-ort.de"],
+  // Frage 5: Allianz-vor-Ort-Seiten der Agentur (öffnen sich in einem neuen Tab)
+  // „Ja, meldet euch“ → Kontaktformular mit Einwilligung
+  contactFormUrl: "https://www.allianz-vor-ort.de/landingpage/zsm/managed/screen-lcQn_ytPR5613qf14pGtdA?homepagekey=thomas.lang1",
+  // „Nein, ich vereinbare selbst einen Termin“ → direkt zum Allianz-Buchungskalender (bookingtime)
+  bookingUrl: "https://booking.allianz-abv.eps.bookingtime.com/?vtnr=703400444",
   phone: "08553 920320",
   phoneHref: "tel:+498553920320",
   imprintUrl: "https://TODO/impressum", // TODO: von der Agentur ausfüllen

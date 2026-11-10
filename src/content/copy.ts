@@ -23,17 +23,9 @@ export const copy = {
     goal: "Im Alter wichtig: {{goal}}",
     priority: "Bei der Vorsorge wichtig: {{priority}}",
   },
-  booking: {
-    heading: "Kostenloses Orientierungsgespräch vereinbaren",
-    text: "Über unsere Allianz-Seite kannst du online einen Termin buchen oder uns deine Kontaktdaten schicken.",
-    loadButton: "Termin vereinbaren",
-    privacy:
-      "Mit dem Klick wird hier die Seite der Allianz (allianz-vor-ort.de) geladen. Dort gelten die Datenschutzhinweise der Allianz. Deine Angaben aus dem Check werden nicht übertragen.",
-    frameTitle: "Terminvereinbarung bei der {{agencyName}}",
-    newTab: "Seite in neuem Tab öffnen",
-    callButton: "Anrufen: {{phone}}",
-  },
   final: {
+    callButton: "Anrufen: {{phone}}",
+    newTabNote: "Die Seite öffnet sich in einem neuen Tab. Dort gelten die Datenschutzhinweise der Allianz bzw. ihres Kalender-Dienstleisters bookingtime; deine Angaben aus dem Check werden nicht übertragen.",
     disclaimer:
       "Dieser Check gibt dir eine erste Orientierung und ersetzt keine persönliche Beratung. Die Rentenschätzung ist stark vereinfacht; deine tatsächliche Rente steht in deiner Renteninformation der Deutschen Rentenversicherung. Förderung und Steuervorteile hängen von deiner persönlichen Situation und den Vertragsbedingungen ab. Deine Angaben werden nicht gespeichert.",
     restart: "Check neu starten",

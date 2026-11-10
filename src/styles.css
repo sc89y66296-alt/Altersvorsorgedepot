@@ -577,85 +577,48 @@ a {
   padding-left: 1.25rem;
 }
 
-.contact {
-  margin: 2rem 0 1rem;
-}
-
-.contact-panel .button {
-  width: 100%;
-}
-
-.booking {
-  scroll-margin-top: 1rem;
-}
-
-.screen-final .question-nav {
-  margin-top: 1.5rem;
-}
-
-.invitation {
-  margin-top: 2rem;
-  padding: 1.25rem;
-  border-radius: var(--radius);
-  background: var(--color-primary-soft);
-}
-
-.invitation p:last-child {
-  margin-bottom: 0;
-}
-
-/* Terminvereinbarung: eingebettete Allianz-Seite */
-
-.booking {
-  margin: 2rem 0 1rem;
-}
-
-.booking h2 {
-  font-size: 1.375rem;
-}
-
-.booking-load {
-  width: 100%;
-}
-
-.booking-privacy {
-  margin-top: 0.75rem;
-}
-
-/* Feste Höhe statt vh: Im iframe der Agentur-Website würde vh sonst mitwachsen */
-.calendar {
-  position: relative;
-}
-
-/* Ladehinweis hinter dem (bis zum Laden durchsichtigen) iframe – die Allianz-Seite braucht ein paar Sekunden */
-.calendar::before {
-  content: "Die Allianz-Seite wird geladen …";
-  position: absolute;
-  top: 2rem;
-  left: 0;
-  right: 0;
-  text-align: center;
-  color: var(--color-muted);
-}
-
-.booking-frame {
-  position: relative;
-  display: block;
-  width: 100%;
-  height: 760px;
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius);
-  background: transparent;
-}
-
-.calendar-newtab {
-  margin-top: 0.5rem;
+/* Frage 5: kurze Einleitung zwischen Frage und Antworten */
+.final-intro {
+  margin: 0.75rem 0 1.25rem;
+  padding: 0.875rem 1rem 0.125rem;
+  border-left: 4px solid var(--color-primary);
+  background: var(--color-tint);
+  border-radius: 0 var(--radius) var(--radius) 0;
   font-size: 0.9375rem;
+}
+
+.final-goal {
+  font-weight: 600;
+  color: var(--color-heading);
+}
+
+/* Nächster Schritt nach der Antwort: Kontaktformular oder Terminbuchung */
+.next-step {
+  margin-top: 1.25rem;
+  padding: 1.125rem 1.25rem 0.25rem;
+  border-radius: var(--radius);
+  background: var(--color-tint);
 }
 
 .contact-actions {
   display: grid;
   gap: 0.625rem;
+}
+
+.contact-actions .button {
+  width: 100%;
+}
+
+.next-step .disclaimer {
+  margin-top: 0.75rem;
+}
+
+.screen-final .summary {
+  margin-top: 2rem;
+}
+
+.screen-final .question-nav {
+  margin-top: 1.5rem;
 }
 
 .screen-final > .disclaimer {

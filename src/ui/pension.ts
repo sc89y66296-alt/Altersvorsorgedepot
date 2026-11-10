@@ -31,10 +31,7 @@ export function renderPensionSlider(start: number, onChange: (income: number) =>
     incomeValue.textContent = incomeText;
     slider.setAttribute("aria-valuetext", `${incomeText} brutto im Monat`);
     pensionValue.textContent = keepEuroTogether(`ca. ${formatNumber(estimate.monthlyPension)} €`);
-    resultLine.textContent = fillPlaceholders(q1.resultLine, {
-      percent: estimate.percentOfIncome,
-      gap: formatNumber(estimate.gap),
-    });
+    resultLine.textContent = fillPlaceholders(q1.resultLine, { percent: estimate.percentOfIncome });
     ceilingLine.textContent = fillPlaceholders(q1.aboveCeiling, { ceiling: formatNumber(p.contributionCeilingMonthly) });
     ceilingLine.hidden = !estimate.aboveCeiling;
     onChange(income);

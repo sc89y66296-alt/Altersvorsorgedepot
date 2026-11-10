@@ -16,7 +16,6 @@ export function renderFooter(container: HTMLElement): void {
       { class: "container footer-links", "aria-label": "Rechtliches" },
       externalLink(config.imprintUrl, copy.footer.imprint),
       externalLink(config.privacyUrl, copy.footer.privacy),
-      externalLink(config.initialInfoUrl, copy.footer.initialInfo),
     ),
   );
 }

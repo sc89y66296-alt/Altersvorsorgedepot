@@ -8,16 +8,16 @@ Entstanden als Kopie des Selbstchecks [Versicherungscheck](https://github.com/sc
 
 | Frage | Inhalt |
 | --- | --- |
-| 1 | Schieberegler fürs Bruttoeinkommen, live berechnete gesetzliche Rente und Lücke – „Wärst du damit zufrieden?“ Bei „Ja, das würde mir reichen“ folgt einmal „Bist du dir sicher?“ (Abzüge für Kranken-/Pflegeversicherung, Beitragslücken): weiter zu Frage 2 oder Check beenden |
+| 1 | Schieberegler fürs Bruttoeinkommen, live berechnete gesetzliche Rente (brutto, in % des heutigen Brutto) – „Wärst du damit zufrieden?“ Bei „Ja, das würde mir reichen“ folgt einmal „Bist du dir sicher?“ (Abzüge für Kranken-/Pflegeversicherung, Beitragslücken): weiter zu Frage 2 oder Check beenden |
 | 2 | Was ist dir im Alter am wichtigsten? Vier Bildkarten mit Bildunterschrift (Auswandern ans Meer, Reisen & Urlaub, Sicherheit, Familie) |
 | 3 | Förderung, Flexibilität oder „Ich möchte erst mehr wissen“ |
 | 4 | Je nach Frage 3: Altersvorsorgedepot (Zulagen), Privatrente (Flexibilität, Steuervorteile) oder bei „mehr wissen“ beides untereinander – „Möchtest du darüber sprechen?“ „Erst mal nicht“ beendet den Check ohne Nachfrage |
-| 5 | „Dürfen wir uns bei dir melden?“ – Ja: Link zum Kontaktformular, Nein: Link zur Online-Terminbuchung. Dazu Einladung zum Orientierungsgespräch und Zusammenfassung |
+| 5 | „Wie möchtest du weitermachen?“ – „Meldet euch bei mir“: Link zum Kontaktformular, „Ich buche selbst einen Termin“: Link zur Online-Terminbuchung. Dazu Einladung zum Orientierungsgespräch und Zusammenfassung |
 | Ende | Abschlussseite für beide Ausstiege: Dank, Zusammenfassung und ein unaufdringlicher Hinweis (Termin-Link, Telefon) – kein großer Termin-Button |
 
 **Rentenschätzung (Frage 1):** Einkommen (bis zur Beitragsbemessungsgrenze) ÷ Durchschnittsentgelt × 12 × 45 Jahre × aktueller Rentenwert. Gerechnet wird mit heutigen Werten, brutto. Die Werte stehen in `src/config.ts` unter `pension` und sollten einmal im Jahr aktualisiert werden.
 
-**Frage 5:** Es gibt keinen eigenen Server und nichts wird eingebettet. „Ja, meldet euch gerne bei mir“ zeigt einen Button zum Kontaktformular der Allianz-vor-Ort-Seite (`contactFormUrl`, mit Einwilligung), „Nein, ich vereinbare selbst einen Termin“ einen Button direkt zum Allianz-Buchungskalender bei bookingtime (`bookingUrl`). Beide öffnen sich in einem neuen Tab; zusätzlich gibt es jeweils den Anruf-Button.
+**Frage 5:** Es gibt keinen eigenen Server und nichts wird eingebettet. „Meldet euch bei mir“ zeigt einen Button zum Kontaktformular der Allianz-vor-Ort-Seite (`contactFormUrl`, mit Einwilligung), „Ich buche selbst einen Termin“ einen Button direkt zum Allianz-Buchungskalender bei bookingtime (`bookingUrl`). Beide öffnen sich in einem neuen Tab; zusätzlich gibt es jeweils den Anruf-Button.
 
 - Läuft komplett im Browser, ohne Server, Datenbank, Cookies oder Tracking.
 - Antworten werden nirgends gespeichert. Ein Neuladen der Seite startet den Check von vorn.
@@ -75,10 +75,10 @@ Alle agenturspezifischen Werte stehen in **`src/config.ts`**. Alles mit `TODO` m
 | --- | --- |
 | `agencyName` | Name der Agentur (oben auf der Seite, wenn kein Logo gesetzt ist) |
 | `logoUrl` | Logo, leer lassen = kein Logo. Am besten die Logo-Datei in den Ordner `public/` legen und hier nur den Dateinamen eintragen, z. B. `"logo.svg"` |
-| `contactFormUrl` | Allianz-vor-Ort-Seite mit Kontaktformular (Frage 5, Antwort „Ja, meldet euch“) |
-| `bookingUrl` | Allianz-Buchungskalender der Agentur bei bookingtime (Frage 5, Antwort „Nein, ich vereinbare selbst einen Termin“) |
+| `contactFormUrl` | Allianz-vor-Ort-Seite mit Kontaktformular (Frage 5, Antwort „Meldet euch bei mir“) |
+| `bookingUrl` | Allianz-Buchungskalender der Agentur bei bookingtime (Frage 5, Antwort „Ich buche selbst einen Termin“) |
 | `phone`, `phoneHref` | Telefonnummer zum Anzeigen und als Anruf-Link (`tel:+49…`) |
-| `imprintUrl`, `privacyUrl`, `initialInfoUrl` | Links im Fuß: Impressum, Datenschutz, Erstinformation |
+| `imprintUrl`, `privacyUrl` | Links im Fuß: Impressum (enthält auch die Erstinformation zum Vermittlerstatus) und Datenschutz – Seiten der Agentur auf vertretung.allianz.de |
 | `appointmentDurationMinutes` | Termindauer in der Einladung („Ca. 30 Minuten …“) |
 | `agencyLocation` | Ort der Agentur für die Einladung bei Frage 5 („… in Spiegelau“) |
 | `incomeSlider` | Bereich, Schrittweite und Startwert des Einkommens-Schiebereglers |
@@ -157,7 +157,7 @@ Bei Website-Baukästen (z. B. WordPress-Block „Individuelles HTML“) lässt s
 - **Zwei Ausstiege:** „Ja, das würde mir reichen“ (Frage 1) wird einmal nachgefragt, weil viele die Abzüge im Alter unterschätzen. „Erst mal nicht“ (Frage 4) beendet den Check ohne Nachfrage – ein zweites Nachhaken würde dort aufdringlich wirken.
 - **Abzug Kranken-/Pflegeversicherung** bei der Nachfrage: pauschal `pension.healthCareSharePercent` (12 %) aus `src/config.ts`.
 - **Kein automatisches Weiterspringen:** Ein Klick auf eine Antwort wählt sie nur aus, weiter geht es mit „Weiter“ oder Enter.
-- **Fußzeile** (Impressum, Datenschutz, Erstinformation) ist auf allen Screens sichtbar.
+- **Fußzeile** (Impressum, Datenschutz) ist auf allen Screens sichtbar. Ein eigener Link „Erstinformation“ entfällt, weil das Impressum der Agentur diese Angaben bereits enthält.
 
 ## 8. QR-Code
 

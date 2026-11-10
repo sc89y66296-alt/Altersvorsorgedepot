@@ -59,8 +59,8 @@ describe("Inhalte", () => {
 
   it("Frage 5: Ja führt zum Kontaktformular, Nein zur Terminbuchung", () => {
     expect(q5.contact.answers.map((a) => a.label)).toEqual([
-      "Ja, meldet euch gerne bei mir",
-      "Nein, ich vereinbare selbst einen Termin",
+      "Meldet euch bei mir",
+      "Ich buche selbst einen Termin",
     ]);
     expect(q5.yes.button).toBe("Zum Kontaktformular");
     expect(q5.no.button).toBe("Termin online vereinbaren");
@@ -72,6 +72,10 @@ describe("Inhalte", () => {
     expect(booking.searchParams.get("vtnr")).toBe("703400444");
     for (const url of [form, booking]) expect(url.protocol).toBe("https:");
     expect(config.phoneHref).toMatch(/^tel:\+\d+$/);
+    for (const link of [config.imprintUrl, config.privacyUrl]) {
+      expect(link).toMatch(/^https:\/\/vertretung\.allianz\.de\/thomas\.lang1\//);
+      expect(link).not.toContain("TODO");
+    }
   });
 });
 

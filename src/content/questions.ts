@@ -23,9 +23,9 @@ export const q1 = {
   sliderLabel: "Dein Bruttoeinkommen pro Monat",
   resultLabel: "Geschätzte gesetzliche Rente pro Monat",
   shortNote: "Vereinfachte Schätzung, brutto, in heutigen Werten – Details unten.",
-  resultLine: "Das sind rund {{percent}} % deines heutigen Bruttoeinkommens – dir fehlen im Alter ca. {{gap}} € im Monat.",
+  resultLine: "Das sind rund {{percent}} % deines heutigen Bruttoeinkommens – und davon gehen im Alter noch Kranken- und Pflegeversicherung und meist Steuern ab.",
   aboveCeiling:
-    "Einkommen über {{ceiling}} € im Monat (Beitragsbemessungsgrenze) erhöht die gesetzliche Rente nicht mehr – die Lücke wird damit größer.",
+    "Einkommen über {{ceiling}} € im Monat (Beitragsbemessungsgrenze) erhöht die gesetzliche Rente nicht mehr – der Anteil an deinem Einkommen sinkt dadurch.",
   footnote:
     "Vereinfachte Schätzung: {{years}} Jahre mit diesem Einkommen, heutige Werte (Rentenwert {{pensionValue}} €), vor Steuern und Krankenversicherung. Das gesetzliche Rentenniveau von {{level}} % bezieht sich auf einen Durchschnittsverdienst nach Sozialabgaben – im Verhältnis zum Brutto bleibt deshalb weniger übrig.",
   question: {
@@ -132,16 +132,16 @@ export const q5 = {
   intro:
     "Jede Situation ist anders. In einem kostenlosen Orientierungsgespräch schauen wir gemeinsam, was zu dir passt – bei uns in der Agentur in {{agencyLocation}}, bei dir zu Hause oder per Video. Ca. {{appointmentDurationMinutes}} Minuten, ganz ohne Verpflichtung.",
   goalLine: {
-    urlaub: "Damit der Traum vom Leben am Meer im Ruhestand wahr wird, lohnt sich ein früher Blick auf deine Lücke.",
-    reisen: "Damit du im Ruhestand reisen und Urlaub machen kannst, lohnt sich ein früher Blick auf deine Lücke.",
-    sicherheit: "Damit du im Alter ohne Geldsorgen lebst, lohnt sich ein früher Blick auf deine Lücke.",
-    familie: "Damit du im Alter auch deine Familie unterstützen kannst, lohnt sich ein früher Blick auf deine Lücke.",
+    urlaub: "Damit der Traum vom Leben am Meer im Ruhestand wahr wird, lohnt sich ein früher Blick auf deine Altersvorsorge.",
+    reisen: "Damit du im Ruhestand reisen und Urlaub machen kannst, lohnt sich ein früher Blick auf deine Altersvorsorge.",
+    sicherheit: "Damit du im Alter ohne Geldsorgen lebst, lohnt sich ein früher Blick auf deine Altersvorsorge.",
+    familie: "Damit du im Alter auch deine Familie unterstützen kannst, lohnt sich ein früher Blick auf deine Altersvorsorge.",
   } satisfies Record<GoalId, string>,
   contact: {
-    text: "Dürfen wir uns bei dir melden?",
+    text: "Wie möchtest du weitermachen?",
     answers: [
-      { id: "ja", label: "Ja, meldet euch gerne bei mir" },
-      { id: "nein", label: "Nein, ich vereinbare selbst einen Termin" },
+      { id: "ja", label: "Meldet euch bei mir" },
+      { id: "nein", label: "Ich buche selbst einen Termin" },
     ],
   } satisfies ChoiceQuestion<ContactId>,
   yes: {

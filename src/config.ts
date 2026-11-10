@@ -6,15 +6,16 @@ export const config = {
   agencyLocation: "Spiegelau", // Ort der Agentur (Einladung bei Frage 5)
   logoUrl: "", // TODO: von der Agentur ausfüllen – leer = kein Logo (Logo-Datei am besten in den Ordner public/ legen, z. B. "logo.svg")
   // Frage 5: Allianz-vor-Ort-Seiten der Agentur (öffnen sich in einem neuen Tab)
-  // „Ja, meldet euch“ → Kontaktformular mit Einwilligung
+  // „Meldet euch bei mir“ → Kontaktformular mit Einwilligung
   contactFormUrl: "https://www.allianz-vor-ort.de/landingpage/zsm/managed/screen-lcQn_ytPR5613qf14pGtdA?homepagekey=thomas.lang1",
-  // „Nein, ich vereinbare selbst einen Termin“ → direkt zum Allianz-Buchungskalender (bookingtime)
+  // „Ich buche selbst einen Termin“ → direkt zum Allianz-Buchungskalender (bookingtime)
   bookingUrl: "https://booking.allianz-abv.eps.bookingtime.com/?vtnr=703400444",
   phone: "08553 920320",
   phoneHref: "tel:+498553920320",
-  imprintUrl: "https://TODO/impressum", // TODO: von der Agentur ausfüllen
-  privacyUrl: "https://TODO/datenschutz", // TODO: von der Agentur ausfüllen
-  initialInfoUrl: "https://TODO/erstinformation", // TODO: von der Agentur ausfüllen – Erstinformation / Vermittlerstatus
+  // Rechtliches (Fußzeile): Seiten der Agentur bei der Allianz. Das Impressum enthält auch die
+  // Angaben zur Erstinformation (Vermittlerstatus § 34d, Registernummer, Ombudsmann).
+  imprintUrl: "https://vertretung.allianz.de/thomas.lang1/impressum/",
+  privacyUrl: "https://vertretung.allianz.de/thomas.lang1/datenschutz/",
   appointmentDurationMinutes: 30, // TODO: von der Agentur bestätigen
   // Schieberegler bei Frage 1: Bruttoeinkommen pro Monat in €
   incomeSlider: { min: 1000, max: 10000, step: 100, start: 3500 },

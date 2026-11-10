@@ -33,7 +33,6 @@ export const copy = {
   footer: {
     imprint: "Impressum",
     privacy: "Datenschutz",
-    initialInfo: "Erstinformation",
   },
 };
 

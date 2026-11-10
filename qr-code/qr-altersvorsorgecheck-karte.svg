@@ -1,8 +1,8 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1080 1350" width="1080" height="1350">
   <rect width="1080" height="1350" fill="#FFFFFF"/>
   <rect y="0" width="1080" height="14" fill="#003781"/>
-  <text x="540" y="150" text-anchor="middle" font-family="-apple-system, 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="58" font-weight="300" fill="#003781">Lohnt sich das</text>
-  <text x="540" y="222" text-anchor="middle" font-family="-apple-system, 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="58" font-weight="300" fill="#003781">Altersvorsorgedepot für dich?</text>
+  <text x="540" y="150" text-anchor="middle" font-family="-apple-system, 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="58" font-weight="300" fill="#003781">Passt das Altersvorsorgedepot</text>
+  <text x="540" y="222" text-anchor="middle" font-family="-apple-system, 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="58" font-weight="300" fill="#003781">zu deiner Situation?</text>
   <text x="540" y="292" text-anchor="middle" font-family="-apple-system, 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="32" fill="#414141">5 Fragen · ca. 2 Minuten · anonym</text>
   <rect x="196" y="336" width="688" height="688" rx="16" fill="#E6F4F6"/>
   <g transform="translate(220 360)">
@@ -12,6 +12,6 @@
   <rect x="240" y="1052" width="600" height="84" rx="6" fill="#05813C"/>
   <text x="540" y="1106" text-anchor="middle" font-family="-apple-system, 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="34" font-weight="600" letter-spacing="1" fill="#FFFFFF">Scannen &amp; Rente checken</text>
   <rect x="0" y="1220" width="1080" height="130" fill="#E6F4F6"/>
-  <text x="540" y="1278" text-anchor="middle" font-family="-apple-system, 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="34" font-weight="600" fill="#003781">Allianzagentur Thomas Lang</text>
+  <text x="540" y="1278" text-anchor="middle" font-family="-apple-system, 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="34" font-weight="600" fill="#003781">Allianz Agentur Thomas Lang</text>
   <text x="540" y="1320" text-anchor="middle" font-family="-apple-system, 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="26" fill="#414141">Schulstraße 61 · 94518 Spiegelau · 08553 920320</text>
 </svg>

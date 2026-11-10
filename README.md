@@ -1,4 +1,4 @@
-# Rentencheck „Lohnt sich das Altersvorsorgedepot für dich?“
+# Rentencheck „Passt das Altersvorsorgedepot zu deiner Situation?“
 
 Ein kleines Web-Tool: 5 Fragen, ca. 2 Minuten. Es zeigt, wie viel gesetzliche Rente man ungefähr erwarten kann, fragt nach Zielen und Vorsorge-Wunsch und führt zum kostenlosen Orientierungsgespräch.
 

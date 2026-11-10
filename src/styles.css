@@ -256,8 +256,27 @@ a {
   color: var(--color-muted);
 }
 
+/* Startseite: größere Schrift als auf den Fragen */
+.screen-start h1 {
+  font-size: 2.125rem;
+  line-height: 1.2;
+}
+
+.screen-start .lead {
+  font-size: 1.25rem;
+}
+
+.screen-start .privacy-note {
+  font-size: 1.0625rem;
+}
+
+.screen-start .disclaimer {
+  font-size: 0.9375rem;
+}
+
 .screen-start .button {
   margin: 0.5rem 0 1.25rem;
+  font-size: 1.1875rem;
 }
 
 .disclaimer {
@@ -675,6 +694,14 @@ a {
 
   h1 {
     font-size: 2.25rem;
+  }
+
+  .screen-start h1 {
+    font-size: 2.75rem;
+  }
+
+  .screen-start .lead {
+    font-size: 1.375rem;
   }
 
   .question-title {

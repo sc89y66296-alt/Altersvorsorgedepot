@@ -3,7 +3,7 @@
 
 export const copy = {
   start: {
-    title: "Lohnt sich das Altersvorsorgedepot für dich?",
+    title: "Passt das Altersvorsorgedepot zu deiner Situation?",
     subtitle:
       "5 kurze Fragen, ca. 2 Minuten. Du siehst direkt, wie viel gesetzliche Rente du ungefähr erwarten kannst – und welche Vorsorge zu dir passt.",
     privacyNote:

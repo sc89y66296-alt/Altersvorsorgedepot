@@ -2,7 +2,7 @@
 // Nach jeder Änderung: `npm run build` und den Ordner dist/ neu hochladen.
 
 export const config = {
-  agencyName: "Allianzagentur Thomas Lang",
+  agencyName: "Allianz Agentur Thomas Lang",
   agencyLocation: "Spiegelau", // Ort der Agentur (Einladung bei Frage 5)
   logoUrl: "", // TODO: von der Agentur ausfüllen – leer = kein Logo (Logo-Datei am besten in den Ordner public/ legen, z. B. "logo.svg")
   // Frage 5: Allianz-vor-Ort-Seiten der Agentur (öffnen sich in einem neuen Tab)

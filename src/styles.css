@@ -256,6 +256,27 @@ a {
   color: var(--color-muted);
 }
 
+/* Teamfoto oben auf der Startseite */
+.team-photo {
+  margin: 0 0 1.75rem;
+}
+
+.team-photo img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: calc(var(--radius) * 2);
+  box-shadow: 0 0.5rem 1.5rem rgba(0, 55, 129, 0.12);
+  background: var(--color-surface);
+}
+
+.team-photo figcaption {
+  margin-top: 0.625rem;
+  font-size: 0.9375rem;
+  color: var(--color-muted);
+  text-align: center;
+}
+
 /* Startseite: größere Schrift als auf den Fragen */
 .screen-start h1 {
   font-size: 2.125rem;

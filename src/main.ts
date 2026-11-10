@@ -9,7 +9,7 @@ import { el } from "./ui/dom";
 import { isEmbedded, reportScreenChange, startHeightReporting } from "./ui/embed";
 import { renderFinal } from "./ui/final";
 import { renderFooter, renderHeader } from "./ui/layout";
-import { renderPensionSlider } from "./ui/pension";
+import { renderPensionFootnote, renderPensionSlider } from "./ui/pension";
 import { renderQuestion, type QuestionViewProps } from "./ui/question";
 import { renderStart } from "./ui/start";
 import { applyTheme } from "./ui/theme";
@@ -58,6 +58,7 @@ function stepView(step: Step): View {
         topic: q1.topic,
         title: "Wie viel gesetzliche Rente kannst du erwarten?",
         intro: [renderPensionSlider(answers.monthlyIncome, (income) => update({ monthlyIncome: income }))],
+        outro: [renderPensionFootnote()],
         legend: q1.question.text,
         answers: q1.question.answers,
         selected: answers.satisfaction,

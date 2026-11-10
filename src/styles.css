@@ -538,8 +538,14 @@ a {
   margin: 0.5rem 0 0;
 }
 
-.pension-calc .disclaimer {
-  margin-top: 0.75rem;
+.pension-note {
+  margin: 0.625rem 0 0;
+  font-size: 0.875rem;
+  color: var(--color-muted);
+}
+
+.pension-footnote {
+  margin-top: 1.75rem;
 }
 
 .question-legend {

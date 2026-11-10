@@ -6,7 +6,7 @@ import { contrastRatio } from "../src/logic/contrast";
 
 describe("Inhalte", () => {
   it("die Fragen haben die vorgesehenen Antworten", () => {
-    expect(q1.question.answers.map((a) => a.id)).toEqual(["zufrieden", "mehr", "unklar"]);
+    expect(q1.question.answers.map((a) => a.id)).toEqual(["zufrieden", "mehr"]);
     expect(q2.answers.map((a) => a.id)).toEqual(["urlaub", "reisen", "sicherheit", "familie"]);
     expect(q3.answers.map((a) => a.id)).toEqual(["foerderung", "flexibilitaet", "unsicher"]);
     expect(q4.question.answers.map((a) => a.id)).toEqual(["ja", "spaeter"]);

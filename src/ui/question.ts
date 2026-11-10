@@ -8,6 +8,7 @@ export interface QuestionViewProps {
   topic?: string;
   title: string; // Überschrift (h1)
   intro?: Node[]; // Inhalt zwischen Überschrift und Antworten (z. B. Schieberegler, Info-Box)
+  outro?: Node[]; // Inhalt ganz am Ende, unter den Buttons (z. B. ausführliche Erklärung)
   legend?: string; // eigene Frage über den Antworten; ohne = die Überschrift ist die Frage
   answers: Answer[];
   selected?: string;
@@ -115,6 +116,7 @@ export function renderQuestion(props: QuestionViewProps): View {
     ...(props.intro ?? []),
     fieldset,
     el("div", { class: "question-nav" }, backButton, nextButton),
+    ...(props.outro ?? []),
   );
   form.addEventListener("submit", (event) => {
     event.preventDefault();

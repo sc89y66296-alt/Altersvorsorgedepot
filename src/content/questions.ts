@@ -22,6 +22,7 @@ export const q1 = {
   topic: "Deine gesetzliche Rente",
   sliderLabel: "Dein Bruttoeinkommen pro Monat",
   resultLabel: "Geschätzte gesetzliche Rente pro Monat",
+  shortNote: "Vereinfachte Schätzung, brutto, in heutigen Werten – Details unten.",
   resultLine: "Das sind rund {{percent}} % deines heutigen Bruttoeinkommens – dir fehlen im Alter ca. {{gap}} € im Monat.",
   aboveCeiling:
     "Einkommen über {{ceiling}} € im Monat (Beitragsbemessungsgrenze) erhöht die gesetzliche Rente nicht mehr – die Lücke wird damit größer.",
@@ -32,7 +33,6 @@ export const q1 = {
     answers: [
       { id: "zufrieden", label: "Ja, das würde mir reichen" },
       { id: "mehr", label: "Nein, ich hätte gern mehr" },
-      { id: "unklar", label: "Weiß ich noch nicht" },
     ],
   } satisfies ChoiceQuestion<SatisfactionId>,
 };

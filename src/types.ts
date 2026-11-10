@@ -1,6 +1,6 @@
 // Antwort-Kürzel. Sie sind interne IDs – die Ablauf-Logik in src/logic/flow.ts hängt daran.
 
-export type SatisfactionId = "zufrieden" | "mehr" | "unklar"; // Frage 1
+export type SatisfactionId = "zufrieden" | "mehr"; // Frage 1
 export type GoalId = "urlaub" | "reisen" | "sicherheit" | "familie"; // Frage 2
 export type PriorityId = "foerderung" | "flexibilitaet" | "unsicher"; // Frage 3
 export type TalkId = "ja" | "spaeter"; // Frage 4

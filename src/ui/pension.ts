@@ -42,12 +42,6 @@ export function renderPensionSlider(start: number, onChange: (income: number) =>
   slider.addEventListener("input", update);
   update();
 
-  const footnote = fillPlaceholders(q1.footnote, {
-    years: p.workingYears,
-    pensionValue: formatNumber(p.currentPensionValue),
-    level: p.pensionLevelPercent,
-  });
-
   return el(
     "div",
     { class: "pension-calc" },
@@ -65,7 +59,18 @@ export function renderPensionSlider(start: number, onChange: (income: number) =>
       pensionValue,
       resultLine,
       ceilingLine,
+      el("p", { class: "pension-note" }, q1.shortNote),
     ),
-    el("p", { class: "disclaimer" }, footnote),
   );
+}
+
+/** Ausführliche Erklärung der Schätzung – steht am Ende von Frage 1, unter den Antworten. */
+export function renderPensionFootnote(): HTMLElement {
+  const p = config.pension;
+  const text = fillPlaceholders(q1.footnote, {
+    years: p.workingYears,
+    pensionValue: formatNumber(p.currentPensionValue),
+    level: p.pensionLevelPercent,
+  });
+  return el("p", { class: "disclaimer pension-footnote" }, text);
 }

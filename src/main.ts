@@ -2,7 +2,7 @@ import "./styles.css";
 import { config } from "./config";
 import { fillPlaceholders, formatNumber } from "./content/copy";
 import { q1, q2, q3, q4 } from "./content/questions";
-import { TOTAL_STEPS, nextStep, previousStep } from "./logic/flow";
+import { TOTAL_STEPS, infoTopics, nextStep, previousStep } from "./logic/flow";
 import type { Answers, Step } from "./types";
 import type { View } from "./ui/dom";
 import { el } from "./ui/dom";
@@ -83,14 +83,24 @@ function stepView(step: Step): View {
         onSelect: (id) => update({ priority: id as Answers["priority"] }),
       });
     case 4: {
-      // Frage 4 wird nur nach „Förderung“ oder „Flexibilität“ gezeigt
-      const info = q4.info[answers.priority === "flexibilitaet" ? "flexibilitaet" : "foerderung"];
+      // Erklärung passend zu Frage 3 – bei „Ich möchte erst mehr wissen“ beide untereinander
+      const topics = infoTopics(answers);
       const values = Object.fromEntries(Object.entries(config.funding).map(([k, v]) => [k, formatNumber(v)]));
+      const both = topics.length > 1;
+      const boxes = topics.map((topic) => {
+        const info = q4.info[topic];
+        return el(
+          "div",
+          { class: "info-box" },
+          both ? el("h2", { class: "info-title" }, fillPlaceholders(info.title, values)) : null,
+          ...info.text.map((t) => el("p", {}, fillPlaceholders(t, values))),
+        );
+      });
       return renderQuestion({
         ...base,
-        topic: q4.topic,
-        title: fillPlaceholders(info.title, values),
-        intro: [el("div", { class: "info-box" }, ...info.text.map((t) => el("p", {}, fillPlaceholders(t, values))))],
+        topic: both ? q4.bothTopic : q4.topic,
+        title: both ? q4.bothTitle : fillPlaceholders(q4.info[topics[0]].title, values),
+        intro: [el("div", { class: "info-boxes" }, ...boxes)],
         legend: q4.question.text,
         answers: q4.question.answers,
         selected: answers.talk,

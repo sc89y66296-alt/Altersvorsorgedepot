@@ -1,13 +1,13 @@
 import { describe, expect, it } from "vitest";
-import { isAnswered, nextStep, previousStep } from "../src/logic/flow";
+import { infoTopics, isAnswered, nextStep, previousStep } from "../src/logic/flow";
 import { summaryLines } from "../src/logic/summary";
 import type { Answers } from "../src/types";
 
 const base: Answers = { monthlyIncome: 3500 };
 
 describe("Ablauf", () => {
-  it("Förderung oder Flexibilität: alle fünf Fragen der Reihe nach", () => {
-    for (const priority of ["foerderung", "flexibilitaet"] as const) {
+  it("alle fünf Fragen der Reihe nach – egal, was bei Frage 3 gewählt wird", () => {
+    for (const priority of ["foerderung", "flexibilitaet", "unsicher"] as const) {
       const answers = { ...base, priority };
       expect([1, 2, 3, 4].map((s) => nextStep(s as 1, answers))).toEqual([2, 3, 4, 5]);
       expect(nextStep(5, answers)).toBeNull();
@@ -15,10 +15,10 @@ describe("Ablauf", () => {
     }
   });
 
-  it("„Ich bin mir unsicher“ springt von Frage 3 direkt zur Terminvereinbarung", () => {
-    const answers: Answers = { ...base, priority: "unsicher" };
-    expect(nextStep(3, answers)).toBe(5);
-    expect(previousStep(5, answers)).toBe(3);
+  it("Frage 4 erklärt die gewählte Vorsorge – bei „Ich möchte erst mehr wissen“ beide", () => {
+    expect(infoTopics({ ...base, priority: "foerderung" })).toEqual(["foerderung"]);
+    expect(infoTopics({ ...base, priority: "flexibilitaet" })).toEqual(["flexibilitaet"]);
+    expect(infoTopics({ ...base, priority: "unsicher" })).toEqual(["foerderung", "flexibilitaet"]);
   });
 
   it("Zurück auf Frage 1 gibt es nicht", () => {

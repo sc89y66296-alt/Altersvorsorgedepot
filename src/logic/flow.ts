@@ -1,25 +1,33 @@
 // Ablauf der fünf Fragen. Reine Funktionen ohne DOM-Zugriff.
 //
-// 1 → 2 → 3 → 4 → 5
-// Wer bei Frage 3 „Ich bin mir unsicher“ wählt, springt direkt zu Frage 5 (Terminvereinbarung).
+// 1 → 2 → 3 → 4 → 5, ohne Sprünge.
+// Frage 4 erklärt, was zur Antwort bei Frage 3 passt – bei „Ich möchte erst mehr wissen“ beides.
 
-import type { Answers, Step } from "../types";
+import type { Answers, PriorityId, Step } from "../types";
 
 export const TOTAL_STEPS = 5;
 
-export function skipsInfoStep(answers: Answers): boolean {
-  return answers.priority === "unsicher";
+export type InfoTopic = Exclude<PriorityId, "unsicher">;
+
+/** Welche Erklärungen Frage 4 zeigt. */
+export function infoTopics(answers: Answers): InfoTopic[] {
+  switch (answers.priority) {
+    case "flexibilitaet":
+      return ["flexibilitaet"];
+    case "unsicher":
+      return ["foerderung", "flexibilitaet"];
+    default:
+      return ["foerderung"];
+  }
 }
 
 /** Nächste Frage oder null nach der letzten. */
-export function nextStep(current: Step, answers: Answers): Step | null {
-  if (current === 3 && skipsInfoStep(answers)) return 5;
+export function nextStep(current: Step, _answers: Answers): Step | null {
   return current < TOTAL_STEPS ? ((current + 1) as Step) : null;
 }
 
 /** Vorherige Frage oder null auf der ersten. */
-export function previousStep(current: Step, answers: Answers): Step | null {
-  if (current === 5 && skipsInfoStep(answers)) return 3;
+export function previousStep(current: Step, _answers: Answers): Step | null {
   return current > 1 ? ((current - 1) as Step) : null;
 }
 

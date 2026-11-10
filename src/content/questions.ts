@@ -74,13 +74,16 @@ export const q3: ChoiceQuestion<PriorityId> = {
   answers: [
     { id: "foerderung", label: "Maximale staatliche Förderung – auch wenn das Geld dafür bis zur Rente gebunden ist" },
     { id: "flexibilitaet", label: "Flexibilität – ich möchte bei Bedarf an mein Geld kommen" },
-    { id: "unsicher", label: "Ich bin mir unsicher" },
+    { id: "unsicher", label: "Ich möchte erst mehr wissen – was bedeuten Förderung und Flexibilität genau?" },
   ],
 };
 
 // Frage 4: Info je nach Antwort bei Frage 3, danach „Möchtest du darüber sprechen?“
+// Bei „Ich möchte erst mehr wissen“ stehen beide Erklärungen untereinander unter bothTitle.
 export const q4 = {
   topic: "Passt zu dir",
+  bothTopic: "Kurz erklärt",
+  bothTitle: "Förderung oder Flexibilität – das steckt dahinter",
   info: {
     foerderung: {
       title: "Altersvorsorgedepot: bis zu {{maxBaseAllowance}} € Zuschuss vom Staat – jedes Jahr",

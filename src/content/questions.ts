@@ -43,13 +43,13 @@ export const q2: ChoiceQuestion<GoalId> = {
   answers: [
     {
       id: "urlaub",
-      label: "Urlaub & Zeit für mich",
+      label: "Auswandern ans Meer",
       image: "images/urlaub.svg",
       caption: "Liegestuhl, Meer und kein Wecker",
     },
     {
       id: "reisen",
-      label: "Reisen & die Welt entdecken",
+      label: "Reisen & Urlaub",
       image: "images/reisen.svg",
       caption: "Koffer packen und endlich los",
     },
@@ -112,8 +112,8 @@ export const q5 = {
   intro:
     "Jede Situation ist anders. In einem kostenlosen Orientierungsgespräch schauen wir gemeinsam, was zu dir passt – bei uns in der {{agencyName}} in {{agencyLocation}}, bei dir zu Hause oder per Video. Ca. {{appointmentDurationMinutes}} Minuten, ganz ohne Verpflichtung.",
   goalLine: {
-    urlaub: "Damit im Ruhestand genug Geld für Urlaub bleibt, lohnt sich ein früher Blick auf deine Lücke.",
-    reisen: "Damit du im Ruhestand die Welt entdecken kannst, lohnt sich ein früher Blick auf deine Lücke.",
+    urlaub: "Damit der Traum vom Leben am Meer im Ruhestand wahr wird, lohnt sich ein früher Blick auf deine Lücke.",
+    reisen: "Damit du im Ruhestand reisen und Urlaub machen kannst, lohnt sich ein früher Blick auf deine Lücke.",
     sicherheit: "Damit du im Alter ohne Geldsorgen lebst, lohnt sich ein früher Blick auf deine Lücke.",
     familie: "Damit du im Alter auch deine Familie unterstützen kannst, lohnt sich ein früher Blick auf deine Lücke.",
   } satisfies Record<GoalId, string>,

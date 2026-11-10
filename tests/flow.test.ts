@@ -42,7 +42,7 @@ describe("Zusammenfassung", () => {
     expect(summaryLines(answers)).toEqual([
       "Bruttoeinkommen: 3.500\u00a0€ im Monat",
       "Geschätzte gesetzliche Rente: ca. 1.547\u00a0€ im Monat",
-      "Im Alter wichtig: Reisen & die Welt entdecken",
+      "Im Alter wichtig: Reisen & Urlaub",
       "Bei der Vorsorge wichtig: Maximale staatliche Förderung – auch wenn das Geld dafür bis zur Rente gebunden ist",
     ]);
   });

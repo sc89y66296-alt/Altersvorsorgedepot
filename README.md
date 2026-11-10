@@ -9,7 +9,7 @@ Entstanden als Kopie des Selbstchecks [Versicherungscheck](https://github.com/sc
 | Frage | Inhalt |
 | --- | --- |
 | 1 | Schieberegler fürs Bruttoeinkommen, live berechnete gesetzliche Rente und Lücke – „Wärst du damit zufrieden?“ |
-| 2 | Was ist dir im Alter am wichtigsten? Vier Bildkarten mit Bildunterschrift (Urlaub, Reisen, Sicherheit, Familie) |
+| 2 | Was ist dir im Alter am wichtigsten? Vier Bildkarten mit Bildunterschrift (Auswandern ans Meer, Reisen & Urlaub, Sicherheit, Familie) |
 | 3 | Förderung oder Flexibilität? „Ich bin mir unsicher“ springt direkt zu Frage 5 |
 | 4 | Je nach Frage 3: Altersvorsorgedepot (Zulagen) oder Privatrente (Flexibilität, Steuervorteile) – „Möchtest du darüber sprechen?“ |
 | 5 | „Dürfen wir uns proaktiv bei dir melden?“ – Ja: Link zum Kontaktformular, Nein: Link zur Online-Terminbuchung. Dazu Einladung zum Orientierungsgespräch und Zusammenfassung |

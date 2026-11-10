@@ -1,16 +1,18 @@
 import { defineConfig } from "vitest/config";
+import { config } from "./src/config";
 
 // Nur im Build: Content-Security-Policy als Meta-Tag. Sie erlaubt ausschließlich
-// eigene Dateien, keine iframes und blockiert jede
-// Netzwerkanfrage aus dem Skript heraus.
+// eigene Dateien, keine iframes und blockiert jede Netzwerkanfrage aus dem Skript heraus –
+// einzige Ausnahme ist die anonyme Statistik (Umami), wenn eine Website-ID eingetragen ist.
 // (Im Entwicklungsmodus würde sie Vites Live-Reload blockieren.)
+const stats = config.analytics.websiteId ? config.analytics : null;
 const csp = [
   "default-src 'self'",
-  "script-src 'self'",
+  stats ? `script-src 'self' ${new URL(stats.scriptUrl).origin}` : "script-src 'self'",
   "style-src 'self'",
   "img-src 'self' data: https:",
   "font-src 'self'",
-  "connect-src 'none'",
+  stats ? `connect-src ${new URL(stats.endpoint).origin}` : "connect-src 'none'",
   "frame-src 'none'",
   "object-src 'none'",
   "base-uri 'self'",

@@ -2,6 +2,7 @@ import { config } from "../config";
 import { copy, fillPlaceholders } from "../content/copy";
 import { q5 } from "../content/questions";
 import { summaryLines } from "../logic/summary";
+import { CLICK_EVENTS } from "../logic/tracking";
 import type { Answers, ContactId } from "../types";
 import { el, externalLink, type View } from "./dom";
 import { renderChoices, renderHeading, renderProgress } from "./question";
@@ -9,7 +10,7 @@ import { renderChoices, renderHeading, renderProgress } from "./question";
 function callButton(): HTMLAnchorElement {
   return el(
     "a",
-    { class: "button button-secondary", href: config.phoneHref },
+    { class: "button button-secondary", href: config.phoneHref, "data-track": CLICK_EVENTS.call },
     // Geschützte Leerzeichen: Die Nummer soll im Button nicht umbrechen
     fillPlaceholders(copy.final.callButton, { phone: config.phone.replace(/ /g, "\u00a0") }),
   );
@@ -29,7 +30,12 @@ function renderNextStep(panel: HTMLElement, contact: ContactId): void {
     el(
       "div",
       { class: "contact-actions" },
-      externalLink(url, step.button, "button button-cta"),
+      externalLink(
+        url,
+        step.button,
+        "button button-cta",
+        contact === "ja" ? CLICK_EVENTS.contactForm : CLICK_EVENTS.booking,
+      ),
       callButton(),
     ),
     el("p", { class: "disclaimer" }, copy.final.newTabNote),

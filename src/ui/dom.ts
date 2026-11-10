@@ -24,6 +24,11 @@ export interface View {
   focus?: HTMLElement; // Element, das nach dem Screenwechsel den Fokus bekommt
 }
 
-export function externalLink(href: string, text: string, className?: string): HTMLAnchorElement {
-  return el("a", { href, class: className, target: "_blank", rel: "noopener noreferrer" }, text);
+/** `track`: Name des Zählpunkts für die Statistik (siehe analytics.ts). */
+export function externalLink(href: string, text: string, className?: string, track?: string): HTMLAnchorElement {
+  return el(
+    "a",
+    { href, class: className, target: "_blank", rel: "noopener noreferrer", "data-track": track },
+    text,
+  );
 }

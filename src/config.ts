@@ -37,6 +37,14 @@ export const config = {
     contributionForMaxAllowance: 1800, // Eigenbeitrag pro Jahr, ab dem die volle Grundzulage fließt
     childAllowance: 300, // Kinderzulage pro Kind und Jahr, höchstens
   },
+  // Anonyme Nutzungsstatistik mit Umami Cloud (ohne Cookies). Leere websiteId = keine Statistik.
+  // Gezählt werden nur erreichte Seiten und Klicks auf Termin/Kontakt/Anruf – keine Antworten.
+  analytics: {
+    websiteId: "aaa0176a-0c9b-4fce-9de3-c02465f180bb", // Website-ID aus Umami (Einstellungen → Websites → Bearbeiten)
+    scriptUrl: "https://cloud.umami.is/script.js",
+    endpoint: "https://gateway.umami.is", // Dorthin sendet das Umami-Skript die Zählungen
+    domain: "vorsorgecheck-lang.de", // nur hier zählen, nicht bei lokalen Tests
+  },
   // Allianz-CI, abgeleitet aus dem Design-System von allianz.de
   colors: {
     primary: "#007AB3", // Allianz Interaktiv-Blau: Buttons, Links, Fortschritt, Auswahl

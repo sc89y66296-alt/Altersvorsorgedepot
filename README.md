@@ -2,6 +2,8 @@
 
 Ein kleines Web-Tool: 5 Fragen, ca. 2 Minuten. Es zeigt, wie viel gesetzliche Rente man ungefähr erwarten kann, fragt nach Zielen und Vorsorge-Wunsch und führt zum kostenlosen Orientierungsgespräch.
 
+**Live:** https://vorsorgecheck-lang.de (GitHub Pages, eigene Domain bei Namecheap)
+
 Entstanden als Kopie des Selbstchecks [Versicherungscheck](https://github.com/sc89y66296-alt/Versicherungscheck); Technik, Gestaltung und Terminbuchung sind von dort übernommen.
 
 ## Ablauf
@@ -144,8 +146,9 @@ Bei Website-Baukästen (z. B. WordPress-Block „Individuelles HTML“) lässt s
 
 ## 6. Datenschutz
 
-- Keine Cookies, kein `localStorage`/`sessionStorage`, keine Anfragen an fremde Server, keine externen Schriften.
-- Der gebaute Check enthält eine Content-Security-Policy, die Netzwerkanfragen aus dem Skript heraus technisch blockiert.
+- Keine Cookies, kein `localStorage`/`sessionStorage`, keine externen Schriften. Fremde Server werden nur für die anonyme Statistik angesprochen (siehe unten), wenn sie eingeschaltet ist.
+- Der gebaute Check enthält eine Content-Security-Policy, die Netzwerkanfragen aus dem Skript heraus technisch blockiert – mit der einzigen Ausnahme des Statistik-Servers.
+- **Statistik (Umami Cloud):** Ist in `src/config.ts` unter `analytics.websiteId` eine ID eingetragen, lädt der Check das Umami-Skript und zählt ohne Cookies: Seitenaufruf (mit Herkunft, z. B. `utm_source=aushang`), erreichte Fragen (`Frage 1`–`Frage 5`, `Nachfrage: Bist du sicher?`), die beiden Ausstiege (`Ende: …`) und Klicks auf Kontaktformular, Terminbuchung und Anrufen. Antworten und Einkommen werden nicht gesendet. Jede Seite zählt pro Durchlauf einmal. Gezählt wird nur auf `analytics.domain`, nicht bei lokalen Tests. Auswertung in Umami unter *Reports → Funnel* (Schritte als Events: Frage 1 → … → Frage 5 → Klick). Werbeblocker unterdrücken die Zählung teilweise – die Zahlen sind eine Untergrenze. Die Statistik muss in der Datenschutzerklärung genannt werden (IP-Adresse wird kurz verarbeitet, aber nicht gespeichert).
 - Frage 5: Kontaktformular (allianz-vor-ort.de) und Buchungskalender (Allianz-Dienstleister bookingtime) öffnen sich erst nach einem Klick in einem neuen Tab – vorher gibt es keine Verbindung dorthin. Angaben aus dem Check werden nicht übergeben, ein Referrer wird nicht gesendet. Was jemand dort eingibt, verarbeiten die Allianz bzw. bookingtime nach ihren eigenen Datenschutzhinweisen; die Datenschutzerklärung der Agentur sollte bookingtime nennen. Der Check selbst lädt keine fremden Seiten (Content-Security-Policy: `frame-src 'none'`).
 - Wie bei jeder Webseite protokolliert der Webserver ggf. IP-Adressen in seinen Log-Dateien – das ist Sache des Hosters und gehört in die bestehende Datenschutzerklärung der Website.
 - Das Einkommen aus Frage 1 bleibt im Browser und wird nirgends hin übertragen.
@@ -161,7 +164,7 @@ Bei Website-Baukästen (z. B. WordPress-Block „Individuelles HTML“) lässt s
 
 ## 8. QR-Code
 
-Im Ordner `qr-code/` liegen ein reiner QR-Code und eine Aushang-Karte (1080 × 1350, Allianz-Farben), jeweils als SVG (für den Druck, beliebig skalierbar) und PNG. Beide verweisen auf die GitHub-Pages-Adresse https://sc89y66296-alt.github.io/Altersvorsorgedepot/. Zieht der Check später auf die Agentur-Website um, muss der QR-Code neu erzeugt werden.
+Im Ordner `qr-code/` liegen ein reiner QR-Code und eine Aushang-Karte (1080 × 1350, Allianz-Farben), jeweils als SVG (für den Druck, beliebig skalierbar) und PNG. Beide verweisen auf https://vorsorgecheck-lang.de/?utm_source=aushang – so erscheinen Besuche über den Aushang in der Statistik (Umami → Quellen/UTM) getrennt. Die alte Adresse https://sc89y66296-alt.github.io/Altersvorsorgedepot/ leitet GitHub automatisch dorthin weiter. Ändert sich die Adresse, muss der QR-Code neu erzeugt werden.
 
 ## 9. Projektstruktur
 

@@ -1,9 +1,11 @@
 import "./styles.css";
+import { resetRun, setSender, startAnalytics, trackClicks, trackOnce } from "./analytics";
 import { config } from "./config";
 import { fillPlaceholders, formatNumber } from "./content/copy";
 import { q1, q1Sure, q2, q3, q4 } from "./content/questions";
 import { TOTAL_STEPS, endReason, infoTopics, nextPlace, previousPlace } from "./logic/flow";
 import { estimatePension } from "./logic/pension";
+import { placeEvent } from "./logic/tracking";
 import type { Answers, Place } from "./types";
 import type { View } from "./ui/dom";
 import { el } from "./ui/dom";
@@ -37,6 +39,7 @@ function goTo(place: Place | null): void {
 
 function restart(): void {
   answers = freshAnswers();
+  resetRun();
   show({ name: "start" });
 }
 
@@ -157,6 +160,7 @@ function currentView(): View {
 function render(): void {
   const view = currentView();
   main.replaceChildren(view.node);
+  if (screen.name === "place") trackOnce(placeEvent(screen.place, answers));
   if (firstRender) {
     firstRender = false;
     return; // Beim ersten Laden keinen Fokus setzen
@@ -170,5 +174,9 @@ applyTheme(config.colors);
 if (isEmbedded) document.documentElement.classList.add("is-embedded");
 renderHeader(document.getElementById("site-header")!);
 renderFooter(document.getElementById("site-footer")!);
+// Im Entwicklungsmodus Zählpunkte nur in der Konsole anzeigen, sonst an Umami (falls eingetragen)
+if (import.meta.env.DEV) setSender((name) => console.info("[Statistik]", name));
+else startAnalytics();
+trackClicks(main);
 render();
 startHeightReporting(document.getElementById("app")!);

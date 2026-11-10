@@ -2,6 +2,7 @@ import { config } from "../config";
 import { copy, fillPlaceholders } from "../content/copy";
 import { ending } from "../content/questions";
 import { summaryLines } from "../logic/summary";
+import { CLICK_EVENTS } from "../logic/tracking";
 import type { Answers, EndReason } from "../types";
 import { el, externalLink, type View } from "./dom";
 
@@ -27,11 +28,15 @@ export function renderEnd(props: EndViewProps): View {
     el(
       "ul",
       { class: "later-links" },
-      el("li", {}, externalLink(config.bookingUrl, ending.bookingLink)),
+      el("li", {}, externalLink(config.bookingUrl, ending.bookingLink, undefined, CLICK_EVENTS.bookingLater)),
       el(
         "li",
         {},
-        el("a", { href: config.phoneHref }, fillPlaceholders(ending.callLink, { phone: config.phone })),
+        el(
+          "a",
+          { href: config.phoneHref, "data-track": CLICK_EVENTS.callLater },
+          fillPlaceholders(ending.callLink, { phone: config.phone }),
+        ),
       ),
     ),
   );

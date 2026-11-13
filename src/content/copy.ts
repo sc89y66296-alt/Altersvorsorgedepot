@@ -4,7 +4,6 @@
 export const copy = {
   start: {
     photoAlt: "Das fünfköpfige Team der Allianz Agentur Thomas Lang im Freien, alle lächeln und zeigen den Daumen nach oben",
-    photoCaption: "Dein Allianz-Team aus Spiegelau",
     title: "Passt das Altersvorsorgedepot zu deiner Situation?",
     subtitle:
       "5 kurze Fragen, ca. 2 Minuten. Du siehst direkt, wie viel gesetzliche Rente du ungefähr erwarten kannst – und welche Vorsorge zu dir passt.",

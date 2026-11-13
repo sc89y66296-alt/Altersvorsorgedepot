@@ -19,7 +19,6 @@ export function renderStart(onStart: () => void): View {
       alt: copy.start.photoAlt,
       decoding: "async",
     }),
-    el("figcaption", {}, copy.start.photoCaption),
   );
 
   const node = el(

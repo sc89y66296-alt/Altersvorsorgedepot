@@ -270,13 +270,6 @@ a {
   background: var(--color-surface);
 }
 
-.team-photo figcaption {
-  margin-top: 0.625rem;
-  font-size: 0.9375rem;
-  color: var(--color-muted);
-  text-align: center;
-}
-
 /* Startseite: größere Schrift als auf den Fragen */
 .screen-start h1 {
   font-size: 2.125rem;
